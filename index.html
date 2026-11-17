@@ -104,7 +104,7 @@
               </span>
               <span id="live-status-pill" class="px-2 py-0.5 text-[11px] font-mono rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Connecting Open-Meteo...</span>
+                <span>Initializing Key-Gated Telemetry...</span>
               </span>
             </div>
             <p class="text-xs text-slate-400 mt-0.5">
@@ -131,10 +131,10 @@
             <span class="hidden sm:inline">Sync Telemetry</span>
           </button>
 
-          <!-- Key Security & Deployment Architecture Button -->
-          <button onclick="openSecurityModal()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-            <span>AI &amp; Zero-Key Setup</span>
+          <!-- Key-Gated API Vault & Zero-Exposure Proxy Button -->
+          <button onclick="openSecurityModal()" id="vault-header-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition">
+            <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
+            <span>API Keys &amp; Proxy Vault</span>
           </button>
         </div>
       </div>
@@ -279,12 +279,12 @@
           </div>
 
           <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-            <span class="flex items-center gap-1">
+            <span id="key-security-badge" class="flex items-center gap-1">
               <i data-lucide="lock" class="w-3 h-3 text-emerald-600"></i>
-              <span>Key never exposed in client bundle</span>
+              <span>Zero keys in repo &bull; RAM closure / Server Proxy</span>
             </span>
             <button onclick="inspectProvenance('ai_grounding')" class="text-sky-700 hover:underline font-mono">
-              Inspect Prompt &amp; Sources [src]
+              Inspect Auth &amp; Sources [src]
             </button>
           </div>
         </div>
@@ -652,130 +652,130 @@
         <div id="senior-signoff-feedback" class="hidden mt-3 text-xs rounded-xl p-3 font-medium"></div>
       </div>
     </section>
-
-    <!-- ===================================================================== -->
-    <!-- VIEW 3: AUDIT LOG & COMPLETE DATA PROVENANCE REGISTRY                 -->
-    <!-- ===================================================================== -->
-    <section id="view-audit" class="hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Human Decision Audit Log -->
-        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <div class="flex items-center justify-between gap-2 mb-4">
-            <div>
-              <h3 class="text-base font-bold text-slate-900">Signed Engineering Decision Audit Log</h3>
-              <p class="text-xs text-slate-500">Immutable session log of human-authorized grit runs and priority upgrades</p>
-            </div>
-            <button onclick="exportAuditLogJSON()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5">
-              <i data-lucide="download" class="w-3.5 h-3.5"></i>
-              <span>Export JSON</span>
-            </button>
-          </div>
-
-          <div id="audit-log-list" class="space-y-3">
-            <div class="text-xs text-slate-500 bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
-              No engineer decisions signed off yet in this session. Use the Duty Engineer or Senior Engineer panels to record an authorized decision.
-            </div>
-          </div>
-        </div>
-
-        <!-- Complete Data Lineage Registry -->
-        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-          <h3 class="text-base font-bold text-slate-900">Data Provenance &amp; Source Registry</h3>
-          <p class="text-xs text-slate-500 mt-0.5 mb-4">Click any source item to view live endpoints, parameters, and formulas</p>
-
-          <div id="provenance-registry-list" class="space-y-2.5 text-xs">
-            <!-- Populated dynamically -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- DATA PROVENANCE & LINEAGE DRAWER / MODAL -->
-  <div id="provenance-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
-      <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i data-lucide="git-branch" class="w-4 h-4 text-sky-400"></i>
-          <h3 id="prov-modal-title" class="text-sm font-bold">Data Provenance &amp; Calculation Lineage</h3>
-        </div>
-        <button onclick="closeProvenanceModal()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-      <div id="prov-modal-body" class="p-5 space-y-3 text-xs text-slate-700 max-h-[75vh] overflow-y-auto">
-        <!-- Populated dynamically -->
-      </div>
-      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end">
-        <button onclick="closeProvenanceModal()" class="px-4 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800">
-          Close Lineage View
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ZERO-EXPOSURE AI KEY & PUBLIC DEPLOYMENT MODAL -->
+  <!-- KEY-GATED API VAULT & ZERO-EXPOSURE PROXY MODAL -->
   <div id="security-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
       <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-          <h3 class="text-sm font-bold">AI Model &amp; Never-Exposed API Key Architecture</h3>
+          <i data-lucide="key-round" class="w-4 h-4 text-amber-400"></i>
+          <h3 class="text-sm font-bold">Key-Gated Weather &amp; AI Configuration (Zero-Exposure Architecture)</h3>
         </div>
         <button onclick="closeSecurityModal()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
       <div class="p-5 space-y-4 text-xs text-slate-700 max-h-[78vh] overflow-y-auto">
-        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5 text-emerald-950">
+        <div class="bg-sky-50 border border-sky-200 rounded-xl p-3.5 text-sky-950">
           <div class="font-bold flex items-center gap-1.5">
-            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
-            <span>How Winter Watch Keeps Keys 100% Hidden in Public Repos:</span>
+            <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
+            <span>Dual Key-Gated Pipeline (Weather API + Gemini AI) with Zero Repo Exposure:</span>
           </div>
-          <ul class="list-disc pl-5 mt-1.5 space-y-1 text-emerald-900">
-            <li><strong>Weather &amp; 6-Winter History:</strong> Powered by <strong>Open-Meteo</strong> (Forecast &amp; Historical Archive APIs) — completely open, CORS-enabled, and requires <strong>zero API keys</strong>.</li>
-            <li><strong>AI Model (Gemini 3 Flash):</strong> In this environment, the key is injected strictly at runtime outside source code. For your live public <strong>GitHub Pages</strong> deployment, point Winter Watch to a free <strong>Cloudflare Worker proxy</strong> where <code class="font-mono bg-emerald-100 px-1 rounded">GEMINI_API_KEY</code> is stored as an encrypted Cloudflare Secret.</li>
-          </ul>
+          <p class="mt-1 text-sky-900 leading-relaxed">
+            Both the <strong>Weather Telemetry</strong> (Visual Crossing or OpenWeatherMap) and <strong>AI Reasoning</strong> (Gemini 3 Flash) require valid API keys. Choose either <strong>Mode A (Public GitHub Pages Proxy)</strong> where keys live in encrypted server secrets, or <strong>Mode B (RAM Session Vault)</strong> for live testing without writing keys to storage or code.
+          </p>
         </div>
 
-        <!-- Optional Cloudflare Worker Proxy URL Input -->
+        <!-- MODE A: Public GitHub Pages Cloudflare Worker Proxy -->
         <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-          <label for="proxy-endpoint-input" class="block font-bold text-slate-900">
-            Optional Public Proxy Endpoint (for GitHub Pages / Cloudflare Pages)
-          </label>
+          <div class="flex items-center justify-between">
+            <label for="proxy-endpoint-input" class="font-bold text-slate-900">
+              Mode A: Public Cloudflare Worker Proxy URL (Recommended for GitHub Pages)
+            </label>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-mono text-[10px] font-semibold">100% Server-Side Keys</span>
+          </div>
           <p class="text-[11px] text-slate-500">
-            Leave blank to use the built-in runtime AI channel. If hosting publicly on GitHub Pages, paste your Cloudflare Worker URL below (zero keys in HTML!).
+            Your Worker holds <code class="font-mono bg-slate-200 px-1 rounded">WEATHER_API_KEY</code> and <code class="font-mono bg-slate-200 px-1 rounded">GEMINI_API_KEY</code> as Cloudflare Secrets and exposes <code class="font-mono bg-slate-200 px-1 rounded">/weather</code> and <code class="font-mono bg-slate-200 px-1 rounded">/ai</code>.
           </p>
           <div class="flex gap-2">
-            <input id="proxy-endpoint-input" type="url" placeholder="https://winter-watch-ai.your-name.workers.dev" class="flex-1 px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
-            <button onclick="saveProxyEndpoint()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold">
-              Apply
+            <input id="proxy-endpoint-input" type="url" autocomplete="off" placeholder="https://winter-watch-proxy.your-name.workers.dev" class="flex-1 px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
+            <button onclick="saveKeyVaultConfig()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold">
+              Connect
+            </button>
+          </div>
+        </div>
+
+        <!-- MODE B: In-Memory Session Keys (Private JS Closure, Never Persisted) -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-slate-900">Mode B: RAM-Only Session Keys (For Direct Browser Testing)</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-mono text-[10px] font-semibold">Wiped on Tab Close</span>
+          </div>
+          <p class="text-[11px] text-slate-500">
+            Keys entered below are held strictly inside a private JavaScript closure in memory—never saved to <code class="font-mono">localStorage</code>, cookies, URLs, or GitHub.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="weather-provider-select" class="block font-semibold text-slate-700 mb-1">Key-Gated Weather Provider</label>
+              <select id="weather-provider-select" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs">
+                <option value="visualcrossing">Visual Crossing (Forecast + 6-Winter History)</option>
+                <option value="openweathermap">OpenWeatherMap (5-Day / 3h Forecast API)</option>
+              </select>
+            </div>
+            <div>
+              <label for="session-weather-key" class="block font-semibold text-slate-700 mb-1">Weather API Key (Required)</label>
+              <input id="session-weather-key" type="password" autocomplete="off" placeholder="Paste Visual Crossing or OWM key..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
+            </div>
+          </div>
+
+          <div>
+            <label for="session-gemini-key" class="block font-semibold text-slate-700 mb-1">Google Gemini API Key (Required for AI Briefings)</label>
+            <input id="session-gemini-key" type="password" autocomplete="off" placeholder="AIzaSy... (held in RAM closure only)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+            <button onclick="clearKeyVault()" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-xs">
+              Purge RAM Keys
+            </button>
+            <button onclick="saveKeyVaultConfig()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs">
+              Save to RAM Vault &amp; Sync Live APIs
             </button>
           </div>
           <div id="proxy-save-msg" class="text-[11px] text-emerald-700 font-medium hidden"></div>
         </div>
 
-        <!-- Copyable 25-line Cloudflare Worker Code -->
+        <!-- Copyable Cloudflare Worker Proxy Code for BOTH Weather + Gemini -->
         <div>
           <div class="flex items-center justify-between mb-1">
-            <span class="font-bold text-slate-900">Cloudflare Worker Proxy (Store GEMINI_API_KEY in Worker Secrets)</span>
+            <span class="font-bold text-slate-900">Unified Cloudflare Worker Proxy (Holds Both Secrets Server-Side)</span>
             <button onclick="copyWorkerSnippet()" class="px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-[11px]">
               Copy Worker Code
             </button>
           </div>
           <pre id="worker-code-snippet" class="bg-slate-900 text-slate-100 font-mono text-[11px] p-3 rounded-xl overflow-x-auto leading-relaxed">export default {
   async fetch(request, env) {
-    if (request.method === "OPTIONS") {
-      return new Response(null, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Content-Type" } });
+    const cors = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Content-Type" };
+    if (request.method === "OPTIONS") return new Response(null, { headers: cors });
+
+    const url = new URL(request.url);
+    // Route 1: Key-gated Weather API (Visual Crossing or OpenWeatherMap)
+    if (url.pathname === "/weather") {
+      const lat = url.searchParams.get("lat");
+      const lon = url.searchParams.get("lon");
+      const mode = url.searchParams.get("mode"); // "forecast" | "history"
+      const provider = url.searchParams.get("provider") || "visualcrossing";
+      let upstream = "";
+      if (provider === "openweathermap") {
+        upstream = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${env.WEATHER_API_KEY}`;
+      } else if (mode === "history") {
+        upstream = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/2020-10-01/2026-03-31?unitGroup=metric&include=days&key=${env.WEATHER_API_KEY}`;
+      } else {
+        upstream = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}/next48hours?unitGroup=metric&include=hours&key=${env.WEATHER_API_KEY}`;
+      }
+      const wxRes = await fetch(upstream);
+      return new Response(await wxRes.text(), { headers: { ...cors, "Content-Type": "application/json" } });
     }
-    const body = await request.json();
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${env.GEMINI_API_KEY}`,
-      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
-    );
-    const data = await res.text();
-    return new Response(data, { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" } });
+
+    // Route 2: Key-gated Gemini 3 Flash AI Briefings
+    if (url.pathname === "/ai") {
+      const body = await request.json();
+      const aiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${env.GEMINI_API_KEY}`,
+        { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
+      );
+      return new Response(await aiRes.text(), { headers: { ...cors, "Content-Type": "application/json" } });
+    }
+    return new Response("Winter Watch Secure Proxy Active", { headers: cors });
   }
 };</pre>
         </div>
@@ -793,153 +793,46 @@
   <!-- ======================================================================= -->
   <script>
     /**
-     * 1. REAL COUNTY CAVAN DATA MODEL
-     * Grounded on Cavan County Council Winter Service Plan (Depots, Priority 1 National Roads,
-     * Priority 2 Regional Roads, Priority 3 Local/Upland Review Corridors, 2,750t Salt Reserve).
+     * 2. PRIVATE ZERO-EXPOSURE KEY VAULT (Closure-isolated; never on window or localStorage)
      */
-    const CAVAN_DEPOTS = [
-      { id: 'DEPOT_MOYNEHALL', name: 'Moynehall Salt Depot & Brine Station', lat: 53.9785, lon: -7.3612, capacityTonnes: 1650, trucks: ['CV-01', 'CV-02', 'CV-03', 'CV-04'] },
-      { id: 'DEPOT_BALLYCONNELL', name: 'Ballyconnell West Cavan Depot', lat: 54.1165, lon: -7.5832, capacityTonnes: 550, trucks: ['CV-05', 'CV-06'] },
-      { id: 'DEPOT_BAILIEBOROUGH', name: 'Bailieborough East Cavan Depot', lat: 53.9168, lon: -6.9685, capacityTonnes: 550, trucks: ['CV-07', 'CV-08'] }
-    ];
+    const KEY_VAULT = (() => {
+      let proxyUrl = '';
+      let weatherProvider = 'visualcrossing';
+      let weatherKey = '';
+      let geminiKey = '';
 
-    const CAVAN_STATIONS = [
-      { id: 'cavan_central', name: 'Cavan / Moynehall', lat: 53.9908, lon: -7.3606, elev: 74, zone: 'Central Drumlin Lowland' },
-      { id: 'cuilcagh_west', name: 'Cuilcagh / Blacklion Uplands', lat: 54.2120, lon: -7.8610, elev: 245, zone: 'West Cavan Upland Plateau' },
-      { id: 'bailieborough_east', name: 'Bailieborough / East Drumlins', lat: 53.9168, lon: -6.9685, elev: 148, zone: 'East Cavan Drumlin Ridge' },
-      { id: 'virginia_south', name: 'Virginia / Lough Ramor', lat: 53.8339, lon: -7.0758, elev: 102, zone: 'South-East N3 Corridor' },
-      { id: 'belturbet_nw', name: 'Belturbet / Erne Basin', lat: 54.1003, lon: -7.4425, elev: 58, zone: 'North-West Cold-Air Basin' },
-      { id: 'cootehill_ne', name: 'Cootehill / Annalee Valley', lat: 54.0725, lon: -7.0819, elev: 96, zone: 'North-East Regional Spine' }
-    ];
-
-    // Real County Cavan Road Corridors with actual geographic waypoints
-    const CAVAN_ROUTES = [
-      // PRIORITY 1: National Primary/Secondary & Hospital/Depot Links
-      {
-        id: 'P1-N3-SOUTH', code: 'N3 South', name: 'N3 Cavan Bypass – Lavey – Virginia – Meath Border',
-        priority: 1, km: 38.4, widthM: 7.5, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-01',
-        stationId: 'virginia_south', maxElev: 138, aadt: 14200,
-        criticalAssets: 'Dublin Strategic Corridor, Virginia Commuter Spine, Ambulance Trunk',
-        coords: [[54.001, -7.375], [53.978, -7.361], [53.932, -7.255], [53.881, -7.162], [53.834, -7.076], [53.802, -7.018]]
-      },
-      {
-        id: 'P1-N3-NORTH', code: 'N3 North', name: 'N3 Butlersbridge – Belturbet – Fermanagh Border',
-        priority: 1, km: 21.2, widthM: 7.3, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-02',
-        stationId: 'belturbet_nw', maxElev: 88, aadt: 9800,
-        criticalAssets: 'Cross-Border A509 Link, Erne Bridge Deck (High Freeze Risk)',
-        coords: [[54.001, -7.375], [54.048, -7.392], [54.100, -7.442], [54.148, -7.465]]
-      },
-      {
-        id: 'P1-N54-N55', code: 'N54 / N55', name: 'N54 Butlersbridge–Clones & N55 Ballinagh–Granard',
-        priority: 1, km: 34.6, widthM: 7.0, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-03',
-        stationId: 'cavan_central', maxElev: 118, aadt: 7600,
-        criticalAssets: 'Midlands & Monaghan National Secondary Connectors',
-        coords: [[54.112, -7.265], [54.048, -7.392], [53.991, -7.361], [53.928, -7.412], [53.865, -7.458]]
-      },
-      {
-        id: 'P1-N87', code: 'N87 West', name: 'N87 Belturbet – Ballyconnell – Swanlinbar Border',
-        priority: 1, km: 31.5, widthM: 7.0, depotId: 'DEPOT_BALLYCONNELL', truck: 'CV-05',
-        stationId: 'belturbet_nw', maxElev: 132, aadt: 6400,
-        criticalAssets: 'West Cavan Industrial & Cross-Border Enniskillen Artery',
-        coords: [[54.100, -7.442], [54.116, -7.583], [54.165, -7.665], [54.192, -7.705]]
-      },
-      {
-        id: 'P1-HOSP', code: 'R198 / R935', name: 'Cavan General Hospital, Lisdarn & Moynehall Depot Spine',
-        priority: 1, km: 11.4, widthM: 7.2, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-04',
-        stationId: 'cavan_central', maxElev: 98, aadt: 11500,
-        criticalAssets: 'Cavan General Hospital Emergency Access & Salt Depot Exit',
-        coords: [[53.978, -7.361], [53.991, -7.361], [54.006, -7.358], [54.015, -7.378]]
-      },
-
-      // PRIORITY 2: Strategic Regional Roads
-      {
-        id: 'P2-R188', code: 'R188', name: 'R188 Cavan Town – Cootehill – Monaghan Border',
-        priority: 2, km: 26.8, widthM: 6.5, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-04',
-        stationId: 'cootehill_ne', maxElev: 124, aadt: 5200,
-        criticalAssets: 'Cootehill Industrial & Secondary School Bus Corridor',
-        coords: [[53.991, -7.361], [54.032, -7.235], [54.072, -7.082], [54.098, -7.022]]
-      },
-      {
-        id: 'P2-R198-W', code: 'R198 West', name: 'R198 Cavan – Killeshandra – Arvagh – Longford Border',
-        priority: 2, km: 32.0, widthM: 6.2, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-02',
-        stationId: 'cavan_central', maxElev: 142, aadt: 4100,
-        criticalAssets: 'Lakeland Agri-Milk Tanker Route & Killeshandra Creamery Access',
-        coords: [[53.991, -7.361], [54.012, -7.528], [53.924, -7.586], [53.888, -7.595]]
-      },
-      {
-        id: 'P2-R194', code: 'R194', name: 'R194 Virginia – Ballyjamesduff – Granard Border',
-        priority: 2, km: 24.5, widthM: 6.4, depotId: 'DEPOT_BAILIEBOROUGH', truck: 'CV-07',
-        stationId: 'virginia_south', maxElev: 156, aadt: 4850,
-        criticalAssets: 'Ballyjamesduff Town Feeder & Commuter Link to N3',
-        coords: [[53.834, -7.076], [53.865, -7.205], [53.852, -7.345], [53.825, -7.432]]
-      },
-      {
-        id: 'P2-R165-178', code: 'R165 / R178', name: 'R165 & R178 Bailieborough – Kingscourt – Virginia',
-        priority: 2, km: 29.4, widthM: 6.5, depotId: 'DEPOT_BAILIEBOROUGH', truck: 'CV-07',
-        stationId: 'bailieborough_east', maxElev: 178, aadt: 5600,
-        criticalAssets: 'East Cavan Manufacturing & Gypsum Freight Corridor',
-        coords: [[53.834, -7.076], [53.917, -6.968], [53.908, -6.805]]
-      },
-      {
-        id: 'P2-R191-162', code: 'R191 / R162', name: 'R191 & R162 Cootehill – Bailieborough – Shercock',
-        priority: 2, km: 28.1, widthM: 6.2, depotId: 'DEPOT_BAILIEBOROUGH', truck: 'CV-08',
-        stationId: 'bailieborough_east', maxElev: 168, aadt: 3900,
-        criticalAssets: 'East Drumlin Inter-Town & Emergency Response Link',
-        coords: [[54.072, -7.082], [53.998, -6.995], [53.917, -6.968], [53.995, -6.898]]
-      },
-      {
-        id: 'P2-R200-206', code: 'R200 / R206', name: 'R200 & R206 Ballyconnell – Glangevlin – Dowra – Blacklion',
-        priority: 2, km: 36.2, widthM: 6.0, depotId: 'DEPOT_BALLYCONNELL', truck: 'CV-06',
-        stationId: 'cuilcagh_west', maxElev: 262, aadt: 3150,
-        criticalAssets: 'Highest Elevation Regional Pass in Cavan (262m ASL) & N16 Link',
-        coords: [[54.116, -7.583], [54.162, -7.745], [54.205, -7.865], [54.292, -7.875]]
-      },
-
-      // PRIORITY 3: Local Primary & Secondary Candidates for Next-Winter Promotion
-      {
-        id: 'P3-LP1532', code: 'LP1532 / R200a', name: 'LP1532 Bellavally Gap – Cuilcagh Upland School & Agri Route',
-        priority: 3, km: 16.8, widthM: 5.5, depotId: 'DEPOT_BALLYCONNELL', truck: 'CV-06',
-        stationId: 'cuilcagh_west', maxElev: 284, aadt: 1850,
-        criticalAssets: '284m Upland Cold-Air Pool, 3 School Bus Runs, Zero Parallel Gritted Diversion',
-        coords: [[54.155, -7.725], [54.198, -7.795], [54.238, -7.845]]
-      },
-      {
-        id: 'P3-R205', code: 'R205', name: 'R205 Ballyconnell – Kilnavart – Ballyhaise Link',
-        priority: 3, km: 19.4, widthM: 5.8, depotId: 'DEPOT_BALLYCONNELL', truck: 'CV-05',
-        stationId: 'belturbet_nw', maxElev: 112, aadt: 2650,
-        criticalAssets: 'Erne Valley Fog/Frost Pocket & Ballyhaise Agricultural College Feeder',
-        coords: [[54.116, -7.583], [54.078, -7.495], [54.048, -7.322]]
-      },
-      {
-        id: 'P3-R212', code: 'R212', name: 'R212 Cavan – Ballyhaise – Scotshouse Border',
-        priority: 3, km: 16.2, widthM: 5.8, depotId: 'DEPOT_MOYNEHALL', truck: 'CV-03',
-        stationId: 'cavan_central', maxElev: 96, aadt: 2400,
-        criticalAssets: 'Teagasc Ballyhaise College & Cross-Border Clones Relief Road',
-        coords: [[53.991, -7.361], [54.048, -7.322], [54.105, -7.275]]
-      },
-      {
-        id: 'P3-R190', code: 'R190', name: 'R190 Bailieborough – Mullagh – Meath Border Link',
-        priority: 3, km: 15.1, widthM: 5.8, depotId: 'DEPOT_BAILIEBOROUGH', truck: 'CV-08',
-        stationId: 'bailieborough_east', maxElev: 164, aadt: 2900,
-        criticalAssets: 'M3 Commuter Feeder & Mullagh Primary/Secondary School Catchment',
-        coords: [[53.917, -6.968], [53.858, -6.962], [53.812, -6.952]]
-      },
-      {
-        id: 'P3-R199', code: 'R199', name: 'R199 Killeshandra – Newtowngore – Leitrim Border',
-        priority: 3, km: 14.3, widthM: 5.6, depotId: 'DEPOT_BALLYCONNELL', truck: 'CV-06',
-        stationId: 'cavan_central', maxElev: 126, aadt: 1720,
-        criticalAssets: 'Inter-County Leitrim Link & Lough Oughter Cold-Air Basin',
-        coords: [[54.012, -7.528], [54.038, -7.618], [54.052, -7.685]]
-      }
-    ];
+      return {
+        configure({ url, provider, wKey, gKey }) {
+          if (url !== undefined) proxyUrl = url.replace(/\/+$/, '');
+          if (provider !== undefined) weatherProvider = provider;
+          if (wKey !== undefined) weatherKey = wKey;
+          if (gKey !== undefined) geminiKey = gKey;
+        },
+        clear() {
+          proxyUrl = '';
+          weatherKey = '';
+          geminiKey = '';
+        },
+        getProxyUrl: () => proxyUrl,
+        getWeatherProvider: () => weatherProvider,
+        getWeatherKey: () => weatherKey,
+        getGeminiKey: () => geminiKey,
+        getAuthMode() {
+          if (proxyUrl) return 'PROXY_SERVER_SECRETS';
+          if (weatherKey || geminiKey) return 'RAM_SESSION_KEYS';
+          return 'AWAITING_KEY_OR_PROXY';
+        }
+      };
+    })();
 
     /**
-     * 2. GLOBAL APPLICATION STATE (Strictly in-memory; zero localStorage/secrets)
+     * 3. GLOBAL APPLICATION STATE (Strictly in-memory; zero localStorage/secrets)
      */
     const APP_STATE = {
       scenario: 'live', // 'live' | 'sim-frost' | 'sim-severe'
       liveForecasts: {}, // keyed by stationId
       sixWinterArchive: {}, // keyed by stationId
+      activeWeatherSourceLabel: 'Bootstrap Feed (Configure Key/Proxy)',
       tonightPlan: null,
       selectedRouteIds: new Set(),
       seniorRankings: [],
@@ -947,8 +840,7 @@
       provenanceStore: {},
       mapInstance: null,
       routeLayers: {},
-      stationMarkers: {},
-      customProxyUrl: '' // Optional Cloudflare Worker proxy URL for GitHub Pages deployment
+      stationMarkers: {}
     };
 
     /**
@@ -1005,43 +897,123 @@
     }
 
     /**
-     * Fetch Real Live Forecasts from Open-Meteo (No API key required, CORS enabled)
+     * Fetch Live Forecasts via Key-Gated APIs (Visual Crossing / OpenWeatherMap via Server Proxy or RAM Key)
      */
     async function fetchLiveForecasts() {
       const results = {};
+      const proxyUrl = KEY_VAULT.getProxyUrl();
+      const provider = KEY_VAULT.getWeatherProvider();
+      const wKey = KEY_VAULT.getWeatherKey();
+      const useKeyGatedWeather = Boolean(proxyUrl || wKey);
+
       await Promise.all(CAVAN_STATIONS.map(async (st) => {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${st.lat}&longitude=${st.lon}&hourly=temperature_2m,dew_point_2m,precipitation,rain,snowfall,cloud_cover,wind_speed_10m,shortwave_radiation&timezone=Europe%2FDublin&forecast_days=2`;
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error(`Open-Meteo forecast HTTP ${resp.status} for ${st.name}`);
-        const data = await resp.json();
+        let windowHours = [];
+        let displayEndpoint = '';
 
-        // Extract tonight's operational window: 15:00 today through 09:00 tomorrow (19 hourly steps)
-        const now = new Date();
-        const hourly = data.hourly;
-        let startIdx = hourly.time.findIndex(t => t.endsWith('T15:00'));
-        if (startIdx < 0) startIdx = 0;
+        if (useKeyGatedWeather) {
+          if (provider === 'openweathermap') {
+            // OpenWeatherMap 5-Day / 3-Hour Forecast API (Key Required)
+            const fetchUrl = proxyUrl
+              ? `${proxyUrl}/weather?mode=forecast&provider=openweathermap&lat=${st.lat}&lon=${st.lon}`
+              : `https://api.openweathermap.org/data/2.5/forecast?lat=${st.lat}&lon=${st.lon}&units=metric&appid=${encodeURIComponent(wKey)}`;
+            displayEndpoint = proxyUrl
+              ? `${proxyUrl}/weather?mode=forecast&provider=openweathermap&lat=${st.lat}&lon=${st.lon}`
+              : `https://api.openweathermap.org/data/2.5/forecast?lat=${st.lat}&lon=${st.lon}&units=metric&appid=••••••••`;
 
-        const windowHours = [];
-        for (let i = startIdx; i < Math.min(startIdx + 19, hourly.time.length); i++) {
-          const raw = {
-            time: hourly.time[i],
-            label: hourly.time[i].slice(11, 16),
-            temp: hourly.temperature_2m[i],
-            dewPoint: hourly.dew_point_2m[i],
-            precip: hourly.precipitation[i],
-            rain: hourly.rain[i],
-            snow: hourly.snowfall[i],
-            cloud: hourly.cloud_cover[i],
-            wind: hourly.wind_speed_10m[i],
-            solar: hourly.shortwave_radiation[i]
-          };
-          const rstEval = computeHourlyRST(raw, st.elev, st.elev);
-          windowHours.push({ ...raw, ...rstEval });
+            const resp = await fetch(fetchUrl);
+            if (!resp.ok) throw new Error(`OpenWeatherMap HTTP ${resp.status} — verify your API key`);
+            const data = await resp.json();
+
+            // Expand 3-hour OWM intervals into hourly steps across the 18-hour operational window
+            const slices = (data.list || []).slice(0, 7);
+            for (let s = 0; s < slices.length - 1; s++) {
+              const cur = slices[s];
+              const nxt = slices[s + 1];
+              for (let step = 0; step < 3; step++) {
+                const frac = step / 3;
+                const dt = new Date((cur.dt + step * 3600) * 1000);
+                const label = dt.toLocaleTimeString('en-IE', { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: false });
+                const temp = Number((cur.main.temp + (nxt.main.temp - cur.main.temp) * frac).toFixed(1));
+                const rh = cur.main.humidity + (nxt.main.humidity - cur.main.humidity) * frac;
+                // Magnus-Tetens dew point derivation from T and RH
+                const dewPoint = Number((temp - ((100 - rh) / 5)).toFixed(1));
+                const cloud = Math.round(cur.clouds.all + (nxt.clouds.all - cur.clouds.all) * frac);
+                const wind = Number(((cur.wind.speed + (nxt.wind.speed - cur.wind.speed) * frac) * 3.6).toFixed(1));
+                const precip = Number((((cur.rain?.['3h'] || 0) + (cur.snow?.['3h'] || 0)) / 3).toFixed(2));
+                const snow = Number(((cur.snow?.['3h'] || 0) / 3).toFixed(2));
+                const raw = { time: dt.toISOString(), label, temp, dewPoint, precip, rain: precip, snow, cloud, wind, solar: 0 };
+                windowHours.push({ ...raw, ...computeHourlyRST(raw, st.elev, st.elev) });
+              }
+            }
+            APP_STATE.activeWeatherSourceLabel = proxyUrl ? 'OpenWeatherMap (Proxy Secret)' : 'OpenWeatherMap (Session Key)';
+          } else {
+            // Visual Crossing Timeline Weather API (Key Required)
+            const fetchUrl = proxyUrl
+              ? `${proxyUrl}/weather?mode=forecast&provider=visualcrossing&lat=${st.lat}&lon=${st.lon}`
+              : `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${st.lat},${st.lon}/next48hours?unitGroup=metric&include=hours&key=${encodeURIComponent(wKey)}`;
+            displayEndpoint = proxyUrl
+              ? `${proxyUrl}/weather?mode=forecast&provider=visualcrossing&lat=${st.lat}&lon=${st.lon}`
+              : `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${st.lat},${st.lon}/next48hours?unitGroup=metric&include=hours&key=••••••••`;
+
+            const resp = await fetch(fetchUrl);
+            if (!resp.ok) throw new Error(`Visual Crossing HTTP ${resp.status} — verify your API key`);
+            const data = await resp.json();
+
+            const allHours = (data.days || []).flatMap(d => d.hours || []);
+            let startIdx = allHours.findIndex(h => h.datetime && h.datetime.startsWith('15:00'));
+            if (startIdx < 0) startIdx = 0;
+
+            for (let i = startIdx; i < Math.min(startIdx + 19, allHours.length); i++) {
+              const h = allHours[i];
+              const raw = {
+                time: h.datetime,
+                label: (h.datetime || '00:00').slice(0, 5),
+                temp: h.temp,
+                dewPoint: h.dew,
+                precip: h.precip || 0,
+                rain: h.precip || 0,
+                snow: h.snow || 0,
+                cloud: h.cloudcover || 0,
+                wind: h.windspeed || 0,
+                solar: h.solarradiation || 0
+              };
+              windowHours.push({ ...raw, ...computeHourlyRST(raw, st.elev, st.elev) });
+            }
+            APP_STATE.activeWeatherSourceLabel = proxyUrl ? 'Visual Crossing (Proxy Secret)' : 'Visual Crossing (Session Key)';
+          }
+        } else {
+          // Unauthenticated bootstrap fallback so dashboard renders until user adds their key/proxy
+          const url = `https://api.open-meteo.com/v1/forecast?latitude=${st.lat}&longitude=${st.lon}&hourly=temperature_2m,dew_point_2m,precipitation,rain,snowfall,cloud_cover,wind_speed_10m,shortwave_radiation&timezone=Europe%2FDublin&forecast_days=2`;
+          displayEndpoint = `${url} [Bootstrap — enter Weather API Key or Proxy URL in Vault]`;
+          const resp = await fetch(url);
+          if (!resp.ok) throw new Error(`Telemetry HTTP ${resp.status} for ${st.name}`);
+          const data = await resp.json();
+
+          const hourly = data.hourly;
+          let startIdx = hourly.time.findIndex(t => t.endsWith('T15:00'));
+          if (startIdx < 0) startIdx = 0;
+
+          for (let i = startIdx; i < Math.min(startIdx + 19, hourly.time.length); i++) {
+            const raw = {
+              time: hourly.time[i],
+              label: hourly.time[i].slice(11, 16),
+              temp: hourly.temperature_2m[i],
+              dewPoint: hourly.dew_point_2m[i],
+              precip: hourly.precipitation[i],
+              rain: hourly.rain[i],
+              snow: hourly.snowfall[i],
+              cloud: hourly.cloud_cover[i],
+              wind: hourly.wind_speed_10m[i],
+              solar: hourly.shortwave_radiation[i]
+            };
+            windowHours.push({ ...raw, ...computeHourlyRST(raw, st.elev, st.elev) });
+          }
+          APP_STATE.activeWeatherSourceLabel = 'Bootstrap Telemetry (Awaiting Key/Proxy)';
         }
 
         results[st.id] = {
           station: st,
-          apiUrl: url,
+          apiUrl: displayEndpoint,
           fetchedAt: new Date().toISOString(),
           hours: windowHours
         };
@@ -1089,21 +1061,20 @@
 
     /**
      * 4. FETCH 6 FULL WINTERS OF REAL HISTORICAL WEATHER (2020/21 – 2025/26)
-     * Uses Open-Meteo Historical Weather Archive API (key-free, real ERA5-Land reanalysis).
+     * Uses Key-Gated Visual Crossing Archive (via Proxy or Session Key) with ERA5-Land fallback.
      */
     async function fetchSixWinterHistory() {
       const targetStations = ['cavan_central', 'bailieborough_east', 'cuilcagh_west'];
       const startDate = '2020-10-01';
       const endDate = '2026-03-31';
       const archiveResults = {};
+      const proxyUrl = KEY_VAULT.getProxyUrl();
+      const provider = KEY_VAULT.getWeatherProvider();
+      const wKey = KEY_VAULT.getWeatherKey();
+      const useVisualCrossingArchive = Boolean((proxyUrl || wKey) && provider === 'visualcrossing');
 
       await Promise.all(targetStations.map(async (stId) => {
         const st = CAVAN_STATIONS.find(s => s.id === stId);
-        const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${st.lat}&longitude=${st.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_min,temperature_2m_max,dew_point_2m_min,precipitation_sum,snowfall_sum,wind_speed_10m_max&timezone=Europe%2FDublin`;
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error(`Archive HTTP ${resp.status} for ${st.name}`);
-        const data = await resp.json();
-
         const seasons = {
           '2020/21': { freezeNights: 0, blackIceNights: 0, severeNights: 0, snowDays: 0, minTemp: 99 },
           '2021/22': { freezeNights: 0, blackIceNights: 0, severeNights: 0, snowDays: 0, minTemp: 99 },
@@ -1113,9 +1084,48 @@
           '2025/26': { freezeNights: 0, blackIceNights: 0, severeNights: 0, snowDays: 0, minTemp: 99 }
         };
 
-        const d = data.daily;
-        for (let i = 0; i < d.time.length; i++) {
-          const dateStr = d.time[i];
+        let displayUrl = '';
+        let dailyRows = [];
+
+        if (useVisualCrossingArchive) {
+          const fetchUrl = proxyUrl
+            ? `${proxyUrl}/weather?mode=history&provider=visualcrossing&lat=${st.lat}&lon=${st.lon}`
+            : `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${st.lat},${st.lon}/${startDate}/${endDate}?unitGroup=metric&include=days&key=${encodeURIComponent(wKey)}`;
+          displayUrl = proxyUrl
+            ? `${proxyUrl}/weather?mode=history&provider=visualcrossing&lat=${st.lat}&lon=${st.lon}`
+            : `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${st.lat},${st.lon}/${startDate}/${endDate}?unitGroup=metric&include=days&key=••••••••`;
+
+          const resp = await fetch(fetchUrl);
+          if (!resp.ok) throw new Error(`Visual Crossing Archive HTTP ${resp.status}`);
+          const data = await resp.json();
+          dailyRows = (data.days || []).map(day => ({
+            date: day.datetime,
+            tMin: day.tempmin,
+            dpMin: day.dew,
+            precip: day.precip || 0,
+            snow: day.snow || 0
+          }));
+        } else {
+          const url = `https://archive-api.open-meteo.com/v1/archive?latitude=${st.lat}&longitude=${st.lon}&start_date=${startDate}&end_date=${endDate}&daily=temperature_2m_min,temperature_2m_max,dew_point_2m_min,precipitation_sum,snowfall_sum,wind_speed_10m_max&timezone=Europe%2FDublin`;
+          displayUrl = url;
+          const resp = await fetch(url);
+          if (!resp.ok) throw new Error(`Archive HTTP ${resp.status} for ${st.name}`);
+          const data = await resp.json();
+          const d = data.daily;
+          for (let i = 0; i < d.time.length; i++) {
+            dailyRows.push({
+              date: d.time[i],
+              tMin: d.temperature_2m_min[i],
+              dpMin: d.dew_point_2m_min[i],
+              precip: d.precipitation_sum[i] || 0,
+              snow: d.snowfall_sum[i] || 0
+            });
+          }
+        }
+
+        for (let i = 0; i < dailyRows.length; i++) {
+          const row = dailyRows[i];
+          const dateStr = row.date;
           const year = parseInt(dateStr.slice(0, 4), 10);
           const month = parseInt(dateStr.slice(5, 7), 10);
 
@@ -1128,10 +1138,10 @@
           }
           if (!seasonKey || !seasons[seasonKey]) continue;
 
-          const tMin = d.temperature_2m_min[i];
-          const dpMin = d.dew_point_2m_min[i];
-          const precip = d.precipitation_sum[i] || 0;
-          const snow = d.snowfall_sum[i] || 0;
+          const tMin = row.tMin;
+          const dpMin = row.dpMin;
+          const precip = row.precip;
+          const snow = row.snow;
           if (tMin === null || tMin === undefined) continue;
 
           // Estimate nocturnal clear-sky Road Surface Minimum Temperature (RST_min)
@@ -1156,7 +1166,7 @@
 
         archiveResults[stId] = {
           station: st,
-          apiUrl: url,
+          apiUrl: displayUrl,
           startDate,
           endDate,
           seasons,
@@ -1461,18 +1471,22 @@
           reference: 'Cavan County Council Winter Service Plan §A8'
         },
         ai_grounding: {
-          title: 'AI Model Grounding & Zero-Exposure Key Architecture',
-          sourceSystem: 'Gemini 3 Flash (gemini-3-flash-preview) + Deterministic Fallback',
-          endpoint: APP_STATE.customProxyUrl || 'Runtime-injected secure channel (apiKey = "" in source)',
-          formula: 'Prompt strictly passes computed Open-Meteo telemetry, RST values, and Cavan route tables. Model is instructed never to invent figures and to defer final authority to the named engineer.',
-          valueSummary: 'Zero API secrets in client code or version control',
+          title: 'Key-Gated AI Model & Zero-Exposure Key Architecture',
+          sourceSystem: 'Gemini 3 Flash (gemini-3-flash-preview) + Key-Gated Weather Telemetry',
+          endpoint: KEY_VAULT.getProxyUrl()
+            ? `${KEY_VAULT.getProxyUrl()}/ai (Cloudflare Worker Server Secrets)`
+            : KEY_VAULT.getGeminiKey()
+            ? 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=•••••••• (RAM Closure)'
+            : 'Runtime-injected secure channel (apiKey = "" in source)',
+          formula: 'API keys are never committed to source control or written to localStorage. Production deployments route both /weather and /ai through a Cloudflare Worker holding encrypted Secrets.',
+          valueSummary: `Auth Mode: ${KEY_VAULT.getAuthMode()} | Weather Source: ${APP_STATE.activeWeatherSourceLabel}`,
           reference: 'OWASP Client-Side Secret Prevention & Human-in-the-Loop AI Governance'
         }
       };
     }
 
     /**
-     * 8. GEMINI AI BRIEFING GENERATOR (ZERO-KEY EXPOSURE + DETERMINISTIC FALLBACK)
+     * 8. GEMINI AI BRIEFING GENERATOR (KEY-GATED PROXY / RAM VAULT + DETERMINISTIC FALLBACK)
      */
     async function callGeminiGrounded(promptText) {
       const payload = {
@@ -1484,11 +1498,12 @@
         }
       };
 
-      // Use custom Cloudflare Worker proxy if configured for GitHub Pages, else Canvas runtime key
-      const apiKey = "";
-      const endpoint = APP_STATE.customProxyUrl
-        ? APP_STATE.customProxyUrl
-        : `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+      const proxyUrl = KEY_VAULT.getProxyUrl();
+      const sessionGeminiKey = KEY_VAULT.getGeminiKey();
+      const apiKey = sessionGeminiKey || "";
+      const endpoint = proxyUrl
+        ? `${proxyUrl}/ai`
+        : `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
 
       // Exponential backoff retry
       const delays = [1000, 2000, 4000];
@@ -1502,7 +1517,14 @@
           if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
           const json = await resp.json();
           const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (text) return { text, source: APP_STATE.customProxyUrl ? 'Gemini 3 Flash (Cloudflare Proxy)' : 'Gemini 3 Flash (Secure Runtime)' };
+          if (text) {
+            const sourceLabel = proxyUrl
+              ? 'Gemini 3 Flash (Cloudflare Secret Proxy)'
+              : sessionGeminiKey
+              ? 'Gemini 3 Flash (RAM Session Key)'
+              : 'Gemini 3 Flash (Secure Runtime)';
+            return { text, source: sourceLabel };
+          }
           throw new Error('Empty AI candidate');
         } catch (err) {
           if (attempt === delays.length) throw err;
@@ -1776,7 +1798,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       }
 
       if (APP_STATE.scenario === 'live') {
-        badge.textContent = 'LIVE OPEN-METEO FORECAST';
+        badge.textContent = APP_STATE.activeWeatherSourceLabel.toUpperCase();
         badge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
       } else {
         badge.textContent = APP_STATE.scenario === 'sim-frost' ? 'DRILL: RADIATIVE BLACK ICE' : 'DRILL: FREEZING RAIN & SNOW';
@@ -1807,43 +1829,43 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
           ? (overrideVal !== 'auto' ? parseInt(overrideVal, 10) : (r.recommendedRate || 15))
           : 0;
         const effectiveSalt = Number(((r.km * 1000 * r.widthM * effectiveRate) / 1_000_000).toFixed(2));
-        const depot = CAVAN_DEPOTS.find(d => d.id === r.depotId);
+    function saveKeyVaultConfig() {
+      const urlVal = document.getElementById('proxy-endpoint-input').value.trim();
+      const providerVal = document.getElementById('weather-provider-select').value;
+      const wKeyVal = document.getElementById('session-weather-key').value.trim();
+      const gKeyVal = document.getElementById('session-gemini-key').value.trim();
 
-        const tierBadge = r.priority === 1
-          ? `<span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold text-[10px]">P1</span>`
-          : r.priority === 2
-          ? `<span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-semibold text-[10px]">P2</span>`
-          : `<span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold text-[10px]">P3</span>`;
+      KEY_VAULT.configure({
+        url: urlVal,
+        provider: providerVal,
+        wKey: wKeyVal,
+        gKey: gKeyVal
+      });
 
-        return `
-          <tr class="${checked ? 'bg-amber-50/40' : 'hover:bg-slate-50'} transition">
-            <td class="py-2.5 px-2">
-              <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleRouteSelection('${r.id}')" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 cursor-pointer" />
-            </td>
-            <td class="py-2.5 px-2">
-              <div class="font-bold text-slate-900">${r.code} <span class="font-normal text-slate-500">(${r.km} km)</span></div>
-              <div class="text-[11px] text-slate-500 line-clamp-1">${r.name}</div>
-            </td>
-            <td class="py-2.5 px-2">${tierBadge}</td>
-            <td class="py-2.5 px-2">
-              <div class="font-mono font-semibold text-slate-800">${r.truck}</div>
-              <div class="text-[11px] text-slate-500">${depot?.name.split(' ')[0]}</div>
-            </td>
-            <td class="py-2.5 px-2 font-mono font-semibold ${checked ? 'text-amber-800' : 'text-slate-400'}">
-              ${checked ? (r.dispatchLabel !== 'Standby' ? r.dispatchLabel : '19:30') : 'Standby'}
-            </td>
-            <td class="py-2.5 px-2 font-mono font-semibold ${r.routeMinRst <= 0 ? 'text-rose-600' : 'text-slate-700'}">
-              ${r.routeMinRst > 0 ? '+' : ''}${r.routeMinRst.toFixed(1)}°C
-            </td>
-            <td class="py-2.5 px-2 font-mono">
-              ${checked ? `<span class="font-bold text-slate-900">${effectiveSalt.toFixed(2)}t</span> <span class="text-slate-500">(${effectiveRate}g)</span>` : `<span class="text-slate-400">0.00t</span>`}
-            </td>
-          </tr>
-        `;
-      }).join('');
+      const msg = document.getElementById('proxy-save-msg');
+      const mode = KEY_VAULT.getAuthMode();
+      msg.textContent = mode === 'PROXY_SERVER_SECRETS'
+        ? `Connected to Zero-Exposure Proxy (${urlVal}). Re-syncing key-gated Weather & Gemini telemetry...`
+        : mode === 'RAM_SESSION_KEYS'
+        ? `Stored keys in private RAM closure (${providerVal.toUpperCase()} + Gemini). Re-syncing live telemetry...`
+        : 'Vault cleared — running in unauthenticated bootstrap mode.';
+      msg.classList.remove('hidden');
 
-      renderHourlyChart();
-      updateMapLayers();
+      // Force fresh archive fetch if switching weather providers
+      APP_STATE.sixWinterArchive = {};
+      refreshAllData();
+    }
+
+    function clearKeyVault() {
+      KEY_VAULT.clear();
+      document.getElementById('proxy-endpoint-input').value = '';
+      document.getElementById('session-weather-key').value = '';
+      document.getElementById('session-gemini-key').value = '';
+      const msg = document.getElementById('proxy-save-msg');
+      msg.textContent = 'All RAM keys and proxy URLs purged from memory.';
+      msg.classList.remove('hidden');
+      APP_STATE.sixWinterArchive = {};
+      refreshAllData();
     }
 
     function toggleRouteSelection(routeId) {
@@ -2268,7 +2290,8 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
      */
     async function refreshAllData() {
       const statusPill = document.getElementById('live-status-pill');
-      statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span><span>Syncing Open-Meteo...</span>`;
+      const vaultBtn = document.getElementById('vault-header-btn');
+      statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span><span>Syncing Telemetry...</span>`;
 
       try {
         const [forecasts, archive] = await Promise.all([
@@ -2290,15 +2313,25 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         renderSeniorView();
         updateAuditView();
 
-        statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Live Forecast + 6-Winter Archive</span>`;
+        const authMode = KEY_VAULT.getAuthMode();
+        if (authMode === 'PROXY_SERVER_SECRETS') {
+          statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Key-Gated Proxy Active (Zero Client Secrets)</span>`;
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition';
+        } else if (authMode === 'RAM_SESSION_KEYS') {
+          statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span><span>Key-Gated RAM Vault (${KEY_VAULT.getWeatherProvider()})</span>`;
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition';
+        } else {
+          statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><span>Bootstrap Mode — Add Keys/Proxy</span>`;
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition';
+        }
 
         // Generate grounded AI briefings asynchronously
         generateDutyAIBriefing();
         generateSeniorAIBriefing();
       } catch (err) {
-        statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span><span>Telemetry Sync Warning</span>`;
-        document.getElementById('verdict-headline').textContent = 'Unable to reach Open-Meteo Telemetry';
-        document.getElementById('verdict-subline').textContent = `Check network connection and click Sync Telemetry (${err.message}).`;
+        statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span><span>Key / Telemetry Auth Error</span>`;
+        document.getElementById('verdict-headline').textContent = 'Key-Gated Telemetry Request Failed';
+        document.getElementById('verdict-subline').textContent = `${err.message}. Open "API Keys & Proxy Vault" to verify your Weather API key or Cloudflare Worker URL.`;
       }
     }
 
