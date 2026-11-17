@@ -262,7 +262,7 @@
                 </span>
                 <div>
                   <h3 class="text-sm font-bold text-slate-900">AI Duty Shift Synthesis</h3>
-                  <p id="ai-engine-label" class="text-[11px] text-slate-500 font-mono">Gemini 3 Flash &bull; Grounded on Cavan Telemetry</p>
+                  <p id="ai-engine-label" class="text-[11px] text-slate-500 font-mono">AI Advisor (Gemini / Groq) &bull; Grounded on Cavan Telemetry</p>
                 </div>
               </div>
               <button type="button" onclick="generateDutyAIBriefing(true)" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition cursor-pointer">
@@ -694,7 +694,7 @@
         <strong>Winter Watch</strong> &bull; County Cavan Roads Decision-Support Prototype &bull; Aligned with Cavan County Council Winter Service Plan
       </div>
       <div class="font-mono text-[11px]">
-        Key-Gated Telemetry &bull; OpenStreetMap &bull; Gemini 3 Flash
+        Key-Gated Telemetry &bull; OpenStreetMap &bull; Gemini &amp; Groq AI
       </div>
     </div>
   </footer>
@@ -738,10 +738,10 @@
         <div class="bg-sky-50 border border-sky-200 rounded-xl p-3.5 text-sky-950">
           <div class="font-bold flex items-center gap-1.5">
             <i data-lucide="shield-check" class="w-4 h-4 text-sky-600"></i>
-            <span>Dual Key-Gated Pipeline (Weather API + Gemini AI) with Zero Repo Exposure:</span>
+            <span>Dual Key-Gated Pipeline (Weather API + Groq / Gemini AI) with Zero Repo Exposure:</span>
           </div>
           <p class="mt-1 text-sky-900 leading-relaxed">
-            Configure either <strong>Mode A (Public Cloudflare Worker Proxy)</strong> where keys stay locked inside server-side secrets on GitHub Pages, or <strong>Mode B (RAM-Only Session Vault)</strong> for immediate classroom/browser testing without writing keys to disk or code.
+            Configure either <strong>Mode A (Public Cloudflare Worker Proxy)</strong> where keys stay locked inside server-side secrets on GitHub Pages, or <strong>Mode B (RAM-Only Session Vault)</strong> for immediate browser testing with your Groq (<code class="font-mono">gsk_...</code>) or Gemini (<code class="font-mono">AIza...</code>) key without writing to disk or code.
           </p>
         </div>
 
@@ -754,7 +754,7 @@
             <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-mono text-[10px] font-semibold">100% Server-Side Secrets</span>
           </div>
           <p class="text-[11px] text-slate-500">
-            Your Worker holds <code class="font-mono bg-slate-200 px-1 rounded">WEATHER_API_KEY</code> and <code class="font-mono bg-slate-200 px-1 rounded">GEMINI_API_KEY</code> as Cloudflare Secrets and exposes <code class="font-mono bg-slate-200 px-1 rounded">/weather</code> and <code class="font-mono bg-slate-200 px-1 rounded">/ai</code>.
+            Your Worker holds <code class="font-mono bg-slate-200 px-1 rounded">WEATHER_API_KEY</code> and <code class="font-mono bg-slate-200 px-1 rounded">GROQ_API_KEY</code> (or <code class="font-mono bg-slate-200 px-1 rounded">GEMINI_API_KEY</code>) as Cloudflare Secrets and exposes <code class="font-mono bg-slate-200 px-1 rounded">/weather</code> and <code class="font-mono bg-slate-200 px-1 rounded">/ai</code>.
           </p>
           <div class="flex gap-2">
             <input id="proxy-endpoint-input" type="url" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="https://winter-watch-proxy.your-name.workers.dev" class="flex-1 px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-sky-500" />
@@ -788,9 +788,18 @@
             </div>
           </div>
 
-          <div>
-            <label for="session-gemini-key" class="block font-semibold text-slate-700 mb-1">Google Gemini API Key (For AI Briefings)</label>
-            <input id="session-gemini-key" type="password" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="AIzaSy... (held in RAM closure only)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="ai-provider-select" class="block font-semibold text-slate-700 mb-1">AI Briefing Provider</label>
+              <select id="ai-provider-select" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
+                <option value="groq">Groq Cloud (llama-3.3-70b-versatile)</option>
+                <option value="gemini">Google Gemini (gemini-3-flash-preview)</option>
+              </select>
+            </div>
+            <div>
+              <label for="session-ai-key" class="block font-semibold text-slate-700 mb-1">AI API Key (Groq or Gemini)</label>
+              <input id="session-ai-key" type="password" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="gsk_... or AIzaSy... (RAM closure)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            </div>
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
@@ -804,10 +813,10 @@
           <div id="proxy-save-msg" class="text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 font-medium hidden"></div>
         </div>
 
-        <!-- Copyable Cloudflare Worker Proxy Code for BOTH Weather + Gemini -->
+        <!-- Copyable Cloudflare Worker Proxy Code for BOTH Weather + Groq/Gemini -->
         <div>
           <div class="flex items-center justify-between mb-1">
-            <span class="font-bold text-slate-900">Unified Cloudflare Worker Proxy (Holds Both Secrets Server-Side)</span>
+            <span class="font-bold text-slate-900">Unified Cloudflare Worker Proxy (Weather + Groq / Gemini Secrets)</span>
             <button type="button" onclick="copyWorkerSnippet()" class="px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-[11px] cursor-pointer">
               Copy Worker Code
             </button>
@@ -836,9 +845,18 @@
       return new Response(await wxRes.text(), { headers: { ...cors, "Content-Type": "application/json" } });
     }
 
-    // Route 2: Key-gated Gemini 3 Flash AI Briefings
+    // Route 2: Key-gated AI Briefings (Groq Llama-3.3-70B or Gemini 3 Flash)
     if (url.pathname === "/ai") {
       const body = await request.json();
+      const aiProvider = url.searchParams.get("provider") || (env.GROQ_API_KEY ? "groq" : "gemini");
+      if (aiProvider === "groq") {
+        const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${env.GROQ_API_KEY}` },
+          body: JSON.stringify(body)
+        });
+        return new Response(await groqRes.text(), { headers: { ...cors, "Content-Type": "application/json" } });
+      }
       const aiRes = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${env.GEMINI_API_KEY}`,
         { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
@@ -1156,27 +1174,34 @@
       let proxyUrl = '';
       let weatherProvider = 'visualcrossing';
       let weatherKey = '';
-      let geminiKey = '';
+      let aiProvider = 'groq';
+      let aiKey = '';
 
       return {
-        configure({ url, provider, wKey, gKey }) {
+        configure({ url, provider, wKey, aProvider, aKey }) {
           if (url !== undefined) proxyUrl = url.replace(/\/+$/, '');
           if (provider !== undefined) weatherProvider = provider;
           if (wKey !== undefined) weatherKey = wKey;
-          if (gKey !== undefined) geminiKey = gKey;
+          if (aProvider !== undefined) aiProvider = aProvider;
+          if (aKey !== undefined) {
+            aiKey = aKey;
+            if (aKey.startsWith('gsk_')) aiProvider = 'groq';
+            else if (aKey.startsWith('AIza')) aiProvider = 'gemini';
+          }
         },
         clear() {
           proxyUrl = '';
           weatherKey = '';
-          geminiKey = '';
+          aiKey = '';
         },
         getProxyUrl: () => proxyUrl,
         getWeatherProvider: () => weatherProvider,
         getWeatherKey: () => weatherKey,
-        getGeminiKey: () => geminiKey,
+        getAiProvider: () => aiProvider,
+        getAiKey: () => aiKey,
         getAuthMode() {
           if (proxyUrl) return 'PROXY_SERVER_SECRETS';
-          if (weatherKey || geminiKey) return 'RAM_SESSION_KEYS';
+          if (weatherKey || aiKey) return 'RAM_SESSION_KEYS';
           return 'AWAITING_KEY_OR_PROXY';
         }
       };
@@ -1791,59 +1816,105 @@
         },
         ai_grounding: {
           title: 'Key-Gated AI Model & Zero-Exposure Key Architecture',
-          sourceSystem: 'Gemini 3 Flash (gemini-3-flash-preview) + Key-Gated Weather Telemetry',
+          sourceSystem: KEY_VAULT.getAiProvider() === 'groq'
+            ? 'Groq Cloud (llama-3.3-70b-versatile) + Key-Gated Weather Telemetry'
+            : 'Google Gemini (gemini-3-flash-preview) + Key-Gated Weather Telemetry',
           endpoint: KEY_VAULT.getProxyUrl()
-            ? `${KEY_VAULT.getProxyUrl()}/ai (Cloudflare Worker Server Secrets)`
-            : KEY_VAULT.getGeminiKey()
-            ? 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=•••••••• (RAM Closure)'
+            ? `${KEY_VAULT.getProxyUrl()}/ai?provider=${KEY_VAULT.getAiProvider()} (Cloudflare Worker Server Secrets)`
+            : KEY_VAULT.getAiKey()
+            ? (KEY_VAULT.getAiProvider() === 'groq'
+                ? 'https://api.groq.com/openai/v1/chat/completions (Bearer •••••••• in RAM)'
+                : 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=••••••••')
             : 'Runtime-injected secure channel (apiKey = "" in source)',
           formula: 'API keys are never committed to source control or written to localStorage. Production deployments route both /weather and /ai through a Cloudflare Worker holding encrypted Secrets.',
-          valueSummary: `Auth Mode: ${KEY_VAULT.getAuthMode()} | Weather Source: ${APP_STATE.activeWeatherSourceLabel}`,
+          valueSummary: `Auth Mode: ${KEY_VAULT.getAuthMode()} | AI Engine: ${KEY_VAULT.getAiProvider().toUpperCase()} | Weather: ${APP_STATE.activeWeatherSourceLabel}`,
           reference: 'OWASP Client-Side Secret Prevention & Human-in-the-Loop AI Governance'
         }
       };
     }
 
     /**
-     * 9. GEMINI AI BRIEFING GENERATOR (KEY-GATED PROXY / RAM VAULT + FALLBACK)
+     * 9. AI BRIEFING GENERATOR (GROQ + GEMINI VIA KEY-GATED PROXY / RAM VAULT + FALLBACK)
      */
-    async function callGeminiGrounded(promptText) {
-      const payload = {
-        contents: [{ parts: [{ text: promptText }] }],
-        systemInstruction: {
-          parts: [{
-            text: "You are an expert Winter Maintenance Civil Engineering Advisor for Cavan County Council in Ireland. Be concise (3-4 crisp sentences), strictly cite the exact numbers provided in the prompt, never invent weather or road data, and conclude by noting that the named engineer holds final sign-off authority."
-          }]
-        }
-      };
+    async function callAIGrounded(promptText) {
+      const systemPrompt = "You are an expert Winter Maintenance Civil Engineering Advisor for Cavan County Council in Ireland. Be concise (3-4 crisp sentences), strictly cite the exact numbers provided in the prompt, never invent weather or road data, and conclude by noting that the named engineer holds final sign-off authority.";
 
       const proxyUrl = KEY_VAULT.getProxyUrl();
-      const sessionGeminiKey = KEY_VAULT.getGeminiKey();
-      const apiKey = sessionGeminiKey || "";
-      const endpoint = proxyUrl
-        ? `${proxyUrl}/ai`
-        : `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const sessionAiKey = KEY_VAULT.getAiKey();
+      const provider = sessionAiKey.startsWith('gsk_')
+        ? 'groq'
+        : sessionAiKey.startsWith('AIza')
+        ? 'gemini'
+        : KEY_VAULT.getAiProvider();
 
+      const useGroq = Boolean((provider === 'groq') && (proxyUrl || sessionAiKey));
       const delays = [1000, 2000, 4000];
+
       for (let attempt = 0; attempt <= delays.length; attempt++) {
         try {
-          const resp = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-          const json = await resp.json();
-          const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (text) {
-            const sourceLabel = proxyUrl
-              ? 'Gemini 3 Flash (Cloudflare Secret Proxy)'
-              : sessionGeminiKey
-              ? 'Gemini 3 Flash (RAM Session Key)'
-              : 'Gemini 3 Flash (Secure Runtime)';
-            return { text, source: sourceLabel };
+          if (useGroq) {
+            const groqPayload = {
+              model: 'llama-3.3-70b-versatile',
+              temperature: 0.2,
+              max_tokens: 260,
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: promptText }
+              ]
+            };
+
+            const endpoint = proxyUrl
+              ? `${proxyUrl}/ai?provider=groq`
+              : 'https://api.groq.com/openai/v1/chat/completions';
+
+            const headers = { 'Content-Type': 'application/json' };
+            if (!proxyUrl && sessionAiKey) {
+              headers['Authorization'] = `Bearer ${sessionAiKey}`;
+            }
+
+            const resp = await fetch(endpoint, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify(groqPayload)
+            });
+            if (!resp.ok) throw new Error(`Groq HTTP ${resp.status}`);
+            const json = await resp.json();
+            const text = json?.choices?.[0]?.message?.content?.trim();
+            if (text) {
+              return {
+                text,
+                source: proxyUrl ? 'Groq Llama-3.3-70B (Proxy Secret)' : 'Groq Llama-3.3-70B (RAM Key)'
+              };
+            }
+            throw new Error('Empty Groq completion');
+          } else {
+            const geminiPayload = {
+              contents: [{ parts: [{ text: promptText }] }],
+              systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+            const apiKey = sessionAiKey || "";
+            const endpoint = proxyUrl
+              ? `${proxyUrl}/ai?provider=gemini`
+              : `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+            const resp = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(geminiPayload)
+            });
+            if (!resp.ok) throw new Error(`Gemini HTTP ${resp.status}`);
+            const json = await resp.json();
+            const text = json?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (text) {
+              const sourceLabel = proxyUrl
+                ? 'Gemini 3 Flash (Cloudflare Secret Proxy)'
+                : sessionAiKey
+                ? 'Gemini 3 Flash (RAM Session Key)'
+                : 'Gemini 3 Flash (Secure Runtime)';
+              return { text, source: sourceLabel };
+            }
+            throw new Error('Empty AI candidate');
           }
-          throw new Error('Empty AI candidate');
         } catch (err) {
           if (attempt === delays.length) throw err;
           await new Promise(r => setTimeout(r, delays[attempt]));
@@ -1872,11 +1943,11 @@
 Provide a concise afternoon shift briefing for the Duty Engineer.`;
 
       try {
-        const res = await callGeminiGrounded(prompt);
+        const res = await callAIGrounded(prompt);
         label.textContent = `${res.source} • Zero-Key Safe`;
         box.textContent = res.text;
       } catch (e) {
-        label.textContent = `Deterministic Fallback • Enter Gemini Key in Vault`;
+        label.textContent = `Deterministic Fallback • Add Groq/Gemini Key in Vault`;
         if (plan.actionCode === 'NO_GRIT') {
           box.textContent = `Hourly telemetry across all six County Cavan stations indicates minimum Road Surface Temperatures staying above +${plan.globalMinRst.toFixed(1)}°C (${plan.coldestLocation}) through 09:00 tomorrow. Zero precautionary salt spread is required tonight, conserving the 2,750-tonne depot reserve. Duty Engineer sign-off is requested to log a formal No-Grit / Evening Watch decision.`;
         } else {
@@ -1902,7 +1973,7 @@ Provide a concise afternoon shift briefing for the Duty Engineer.`;
 Write a concise engineering justification memo for promoting ${top.code} next winter.`;
 
       try {
-        const res = await callGeminiGrounded(prompt);
+        const res = await callAIGrounded(prompt);
         box.textContent = res.text;
       } catch (e) {
         box.textContent = `Across six real winters (2020/21–2025/26) from the Historical Archive, ${top.code} (${top.name}, ${top.maxElev}m ASL) averaged ${top.estFreezeNights} sub-zero RST nights and ${top.estBlackIceNights} black-ice nights per season, achieving the highest composite score (${top.compositeScore}/100) ahead of ${runnerUp?.code} (${runnerUp?.compositeScore}/100). Promoting ${top.code} to ${top.targetTier} adds only +${top.extraSaltPerRun} tonnes per run—comfortably absorbed within Cavan's 2,750-tonne depot reserve. Senior Engineer endorsement is required to submit this change to the Roads SPC.`;
@@ -2514,21 +2585,26 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       const urlVal = document.getElementById('proxy-endpoint-input').value.trim();
       const providerVal = document.getElementById('weather-provider-select').value;
       const wKeyVal = document.getElementById('session-weather-key').value.trim();
-      const gKeyVal = document.getElementById('session-gemini-key').value.trim();
+      const aiProviderSelect = document.getElementById('ai-provider-select');
+      const aKeyVal = document.getElementById('session-ai-key').value.trim();
 
       KEY_VAULT.configure({
         url: urlVal,
         provider: providerVal,
         wKey: wKeyVal,
-        gKey: gKeyVal
+        aProvider: aiProviderSelect.value,
+        aKey: aKeyVal
       });
+
+      // Sync dropdown if key prefix auto-detected Groq or Gemini
+      aiProviderSelect.value = KEY_VAULT.getAiProvider();
 
       const msg = document.getElementById('proxy-save-msg');
       const mode = KEY_VAULT.getAuthMode();
       msg.textContent = mode === 'PROXY_SERVER_SECRETS'
-        ? `Connected to Zero-Exposure Proxy (${urlVal}). Syncing key-gated Weather & Gemini telemetry...`
+        ? `Connected to Zero-Exposure Proxy (${urlVal}). Syncing key-gated Weather & ${KEY_VAULT.getAiProvider().toUpperCase()} telemetry...`
         : mode === 'RAM_SESSION_KEYS'
-        ? `Stored keys in private RAM closure (${providerVal.toUpperCase()} + Gemini). Syncing live telemetry...`
+        ? `Stored keys in private RAM closure (${providerVal.toUpperCase()} + ${KEY_VAULT.getAiProvider().toUpperCase()}). Syncing live telemetry...`
         : 'Vault cleared — running in unauthenticated bootstrap mode.';
       msg.classList.remove('hidden');
 
@@ -2540,7 +2616,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       KEY_VAULT.clear();
       document.getElementById('proxy-endpoint-input').value = '';
       document.getElementById('session-weather-key').value = '';
-      document.getElementById('session-gemini-key').value = '';
+      document.getElementById('session-ai-key').value = '';
       const msg = document.getElementById('proxy-save-msg');
       msg.textContent = 'All RAM keys and proxy URLs purged from memory.';
       msg.classList.remove('hidden');
