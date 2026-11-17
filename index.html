@@ -47,7 +47,6 @@
     .mono {
       font-family: 'JetBrains Mono', monospace;
     }
-    /* Custom subtle scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -62,7 +61,6 @@
     ::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
-    /* Leaflet container responsiveness */
     #cavan-map {
       height: 430px;
       width: 100%;
@@ -74,7 +72,6 @@
         height: 320px;
       }
     }
-    /* Provenance interactive badge */
     .prov-trigger {
       cursor: pointer;
       transition: all 0.15s ease;
@@ -102,9 +99,9 @@
               <span class="px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">
                 County Cavan Roads
               </span>
-              <span id="live-status-pill" class="px-2 py-0.5 text-[11px] font-mono rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Initializing Key-Gated Telemetry...</span>
+              <span id="live-status-pill" class="px-2 py-0.5 text-[11px] font-mono rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                <span>Initializing Telemetry...</span>
               </span>
             </div>
             <p class="text-xs text-slate-400 mt-0.5">
@@ -126,13 +123,13 @@
           </div>
 
           <!-- Refresh Live Data Button -->
-          <button onclick="refreshAllData()" id="refresh-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+          <button type="button" onclick="refreshAllData()" id="refresh-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition cursor-pointer">
             <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
             <span class="hidden sm:inline">Sync Telemetry</span>
           </button>
 
           <!-- Key-Gated API Vault & Zero-Exposure Proxy Button -->
-          <button onclick="openSecurityModal()" id="vault-header-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition">
+          <button type="button" onclick="openSecurityModal()" id="vault-header-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition cursor-pointer">
             <i data-lucide="key-round" class="w-3.5 h-3.5"></i>
             <span>API Keys &amp; Proxy Vault</span>
           </button>
@@ -141,15 +138,15 @@
 
       <!-- Role Navigation Tabs -->
       <div class="flex items-center gap-2 mt-3 pt-2.5 border-t border-slate-800/80 overflow-x-auto">
-        <button onclick="switchRoleTab('duty')" id="tab-duty" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/40 whitespace-nowrap transition">
+        <button type="button" onclick="switchRoleTab('duty')" id="tab-duty" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/40 whitespace-nowrap transition cursor-pointer">
           <i data-lucide="truck" class="w-4 h-4"></i>
           <span>1. Duty Engineer — Tonight's Grit Decision</span>
         </button>
-        <button onclick="switchRoleTab('senior')" id="tab-senior" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition">
+        <button type="button" onclick="switchRoleTab('senior')" id="tab-senior" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition cursor-pointer">
           <i data-lucide="trending-up" class="w-4 h-4"></i>
           <span>2. Senior Engineer — Next Winter Priority Upgrade (6-Winter Archive)</span>
         </button>
-        <button onclick="switchRoleTab('audit')" id="tab-audit" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition">
+        <button type="button" onclick="switchRoleTab('audit')" id="tab-audit" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition cursor-pointer">
           <i data-lucide="clipboard-check" class="w-4 h-4"></i>
           <span>3. Decision Log &amp; Data Provenance Registry</span>
           <span id="audit-count-badge" class="px-1.5 py-0.2 rounded-full bg-slate-700 text-slate-200 text-[10px] font-mono">0</span>
@@ -192,7 +189,7 @@
                 Duty Engineer Afternoon Call (15:00 Briefing)
               </span>
               <span id="feed-mode-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                LIVE OPEN-METEO FEED
+                TELEMETRY LOADING
               </span>
             </div>
 
@@ -255,7 +252,7 @@
           </div>
         </div>
 
-        <!-- AI Operational Advisor Card (Zero-Key Safe) -->
+        <!-- AI Operational Advisor Card (Key-Gated & Zero-Key Safe) -->
         <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2">
@@ -268,7 +265,7 @@
                   <p id="ai-engine-label" class="text-[11px] text-slate-500 font-mono">Gemini 3 Flash &bull; Grounded on Cavan Telemetry</p>
                 </div>
               </div>
-              <button onclick="generateDutyAIBriefing(true)" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition">
+              <button type="button" onclick="generateDutyAIBriefing(true)" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition cursor-pointer">
                 Regenerate
               </button>
             </div>
@@ -283,7 +280,7 @@
               <i data-lucide="lock" class="w-3 h-3 text-emerald-600"></i>
               <span>Zero keys in repo &bull; RAM closure / Server Proxy</span>
             </span>
-            <button onclick="inspectProvenance('ai_grounding')" class="text-sky-700 hover:underline font-mono">
+            <button type="button" onclick="inspectProvenance('ai_grounding')" class="text-sky-700 hover:underline font-mono cursor-pointer">
               Inspect Auth &amp; Sources [src]
             </button>
           </div>
@@ -320,7 +317,7 @@
             <div class="text-slate-600">
               <span class="font-semibold text-slate-900">Tip:</span> Click any road corridor on the Cavan map above to inspect its live tonight RST, depot origin, spread rate, and 6-winter freeze history.
             </div>
-            <button onclick="inspectProvenance('road_network_geo')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-slate-700 font-mono text-[11px] hover:bg-slate-100 shrink-0">
+            <button type="button" onclick="inspectProvenance('road_network_geo')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-slate-700 font-mono text-[11px] hover:bg-slate-100 shrink-0 cursor-pointer">
               Network Geo Source [src]
             </button>
           </div>
@@ -373,10 +370,10 @@
               </p>
             </div>
             <div class="flex items-center gap-2">
-              <button onclick="selectRecommendedRoutes()" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition">
+              <button type="button" onclick="selectRecommendedRoutes()" class="px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition cursor-pointer">
                 Reset to Model Rec
               </button>
-              <button onclick="inspectProvenance('treatment_matrix')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-mono text-xs transition">
+              <button type="button" onclick="inspectProvenance('treatment_matrix')" class="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-mono text-xs transition cursor-pointer">
                 Cavan Salt Matrix [src]
               </button>
             </div>
@@ -440,11 +437,11 @@
           </div>
 
           <div class="mt-4 pt-3 border-t border-slate-100 space-y-2">
-            <button onclick="submitDutyDecision('AUTHORIZE_GRIT')" class="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-sm flex items-center justify-center gap-2 transition">
+            <button type="button" onclick="submitDutyDecision('AUTHORIZE_GRIT')" class="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-sm flex items-center justify-center gap-2 transition cursor-pointer">
               <i data-lucide="check-circle-2" class="w-4 h-4"></i>
               <span>Authorize Tonight's Grit Dispatch</span>
             </button>
-            <button onclick="submitDutyDecision('NO_GRIT_STANDBY')" class="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-2 transition">
+            <button type="button" onclick="submitDutyDecision('NO_GRIT_STANDBY')" class="w-full py-2 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs flex items-center justify-center gap-2 transition cursor-pointer">
               <i data-lucide="pause-circle" class="w-4 h-4"></i>
               <span>Record No-Grit / Standby Decision</span>
             </button>
@@ -481,7 +478,7 @@
                   Analyzing 6 Winters of Cavan Historical Weather...
                 </h2>
                 <p id="senior-top-candidate-desc" class="text-sm text-slate-600 mt-1">
-                  Retrieving daily minimum temperatures, dew points, and snowfall from Open-Meteo Historical Archive (Oct 2020 – Mar 2026).
+                  Retrieving daily minimum temperatures, dew points, and snowfall across County Cavan (Oct 2020 – Mar 2026).
                 </p>
               </div>
             </div>
@@ -540,19 +537,19 @@
                   <p class="text-[11px] text-slate-500 font-mono">6-Winter Evidence &amp; Fleet Capacity Brief</p>
                 </div>
               </div>
-              <button onclick="generateSeniorAIBriefing(true)" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition">
+              <button type="button" onclick="generateSeniorAIBriefing(true)" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 transition cursor-pointer">
                 Regenerate
               </button>
             </div>
 
             <div id="senior-ai-output" class="mt-3.5 text-xs sm:text-sm text-slate-700 leading-relaxed bg-slate-50 border border-slate-200/80 rounded-xl p-3.5 min-h-[135px]">
-              Aggregating six winters of Open-Meteo historical data across Cavan lowlands and Cuilcagh uplands...
+              Aggregating six winters of historical weather across Cavan lowlands and Cuilcagh uplands...
             </div>
           </div>
 
           <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
             <span>2020/21 &ndash; 2025/26 Oct&ndash;Mar Seasons</span>
-            <button onclick="inspectProvenance('archive_api_query')" class="text-indigo-700 hover:underline font-mono">
+            <button type="button" onclick="inspectProvenance('archive_api_query')" class="text-indigo-700 hover:underline font-mono cursor-pointer">
               Inspect Archive API [src]
             </button>
           </div>
@@ -567,9 +564,9 @@
             <div class="flex items-center justify-between gap-2">
               <div>
                 <h3 class="text-base font-bold text-slate-900">6 Winters of Cavan Freeze &amp; Ice Nights</h3>
-                <p class="text-xs text-slate-500">Real Open-Meteo Archive (Oct 1 &ndash; Mar 31, 2020&ndash;2026)</p>
+                <p class="text-xs text-slate-500">Historical Weather Archive (Oct 1 &ndash; Mar 31, 2020&ndash;2026)</p>
               </div>
-              <button onclick="inspectProvenance('archive_api_query')" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono text-[11px]">
+              <button type="button" onclick="inspectProvenance('archive_api_query')" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono text-[11px] cursor-pointer">
                 Archive [src]
               </button>
             </div>
@@ -588,7 +585,7 @@
               <h3 class="text-base font-bold text-slate-900">Priority Promotion Candidates (P2 &rarr; P1 or P3 &rarr; P2)</h3>
               <p class="text-xs text-slate-500">Ranked by 6-winter ice exposure, elevation pooling, and community/school access</p>
             </div>
-            <button onclick="inspectProvenance('upgrade_composite_score')" class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono text-xs shrink-0">
+            <button type="button" onclick="inspectProvenance('upgrade_composite_score')" class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 font-mono text-xs shrink-0 cursor-pointer">
               Scoring Weights [src]
             </button>
           </div>
@@ -643,7 +640,7 @@
           </div>
 
           <div class="lg:col-span-2">
-            <button onclick="submitSeniorDecision()" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-sm flex items-center justify-center gap-1.5 transition">
+            <button type="button" onclick="submitSeniorDecision()" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs shadow-sm flex items-center justify-center gap-1.5 transition cursor-pointer">
               <i data-lucide="check-square" class="w-4 h-4"></i>
               <span>Endorse Upgrade</span>
             </button>
@@ -652,15 +649,88 @@
         <div id="senior-signoff-feedback" class="hidden mt-3 text-xs rounded-xl p-3 font-medium"></div>
       </div>
     </section>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 3: HUMAN-IN-THE-LOOP AUDIT LOG & PROVENANCE REGISTRY             -->
+    <!-- ===================================================================== -->
+    <section id="view-audit" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Signed Engineer Decisions -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <div class="flex items-center justify-between gap-2 mb-4">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Signed Engineer Decisions (Human-in-the-Loop Ledger)</h3>
+              <p class="text-xs text-slate-500">Immutable session audit trail of Duty &amp; Senior Engineer authorizations</p>
+            </div>
+            <button type="button" onclick="exportAuditLogJSON()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Export Audit JSON</span>
+            </button>
+          </div>
+
+          <div id="audit-log-list" class="space-y-3">
+            <div class="text-xs text-slate-500 bg-slate-50 border border-dashed border-slate-300 rounded-xl p-6 text-center">
+              No engineer sign-offs recorded yet this session. Use the Duty Engineer or Senior Engineer sign-off cards to record an authorized decision.
+            </div>
+          </div>
+        </div>
+
+        <!-- Complete Data Provenance & Formula Registry -->
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+          <h3 class="text-base font-bold text-slate-900">Data Provenance &amp; Formula Registry</h3>
+          <p class="text-xs text-slate-500 mb-3">Click any source record to inspect endpoints, equations, and standards</p>
+          <div id="provenance-registry-list" class="space-y-2 text-xs">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-4 px-4 sm:px-6 lg:px-8 mt-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <div>
+        <strong>Winter Watch</strong> &bull; County Cavan Roads Decision-Support Prototype &bull; Aligned with Cavan County Council Winter Service Plan
+      </div>
+      <div class="font-mono text-[11px]">
+        Key-Gated Telemetry &bull; OpenStreetMap &bull; Gemini 3 Flash
+      </div>
+    </div>
+  </footer>
+
+  <!-- PROVENANCE INSPECTOR MODAL -->
+  <div id="provenance-modal" onclick="if(event.target===this) closeProvenanceModal()" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-xl w-full shadow-2xl overflow-hidden">
+      <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="file-search" class="w-4 h-4 text-sky-400"></i>
+          <h3 id="prov-modal-title" class="text-sm font-bold">Data Provenance Lineage</h3>
+        </div>
+        <button type="button" onclick="closeProvenanceModal()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div id="prov-modal-body" class="p-5 space-y-3 text-xs text-slate-700 max-h-[75vh] overflow-y-auto">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end">
+        <button type="button" onclick="closeProvenanceModal()" class="px-4 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 cursor-pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- KEY-GATED API VAULT & ZERO-EXPOSURE PROXY MODAL -->
-  <div id="security-modal" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
+  <div id="security-modal" onclick="if(event.target===this) closeSecurityModal()" class="fixed inset-0 z-50 hidden bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white border border-slate-200 rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden">
       <div class="bg-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i data-lucide="key-round" class="w-4 h-4 text-amber-400"></i>
-          <h3 class="text-sm font-bold">Key-Gated Weather &amp; AI Configuration (Zero-Exposure Architecture)</h3>
+          <h3 class="text-sm font-bold">Key-Gated Weather &amp; AI Vault (Zero-Exposure Architecture)</h3>
         </div>
-        <button onclick="closeSecurityModal()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white">
+        <button type="button" onclick="closeSecurityModal()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white cursor-pointer">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -671,24 +741,24 @@
             <span>Dual Key-Gated Pipeline (Weather API + Gemini AI) with Zero Repo Exposure:</span>
           </div>
           <p class="mt-1 text-sky-900 leading-relaxed">
-            Both the <strong>Weather Telemetry</strong> (Visual Crossing or OpenWeatherMap) and <strong>AI Reasoning</strong> (Gemini 3 Flash) require valid API keys. Choose either <strong>Mode A (Public GitHub Pages Proxy)</strong> where keys live in encrypted server secrets, or <strong>Mode B (RAM Session Vault)</strong> for live testing without writing keys to storage or code.
+            Configure either <strong>Mode A (Public Cloudflare Worker Proxy)</strong> where keys stay locked inside server-side secrets on GitHub Pages, or <strong>Mode B (RAM-Only Session Vault)</strong> for immediate classroom/browser testing without writing keys to disk or code.
           </p>
         </div>
 
         <!-- MODE A: Public GitHub Pages Cloudflare Worker Proxy -->
         <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-2">
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between flex-wrap gap-1">
             <label for="proxy-endpoint-input" class="font-bold text-slate-900">
-              Mode A: Public Cloudflare Worker Proxy URL (Recommended for GitHub Pages)
+              Mode A: Cloudflare Worker Proxy URL (For Public GitHub Pages)
             </label>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-mono text-[10px] font-semibold">100% Server-Side Keys</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-mono text-[10px] font-semibold">100% Server-Side Secrets</span>
           </div>
           <p class="text-[11px] text-slate-500">
             Your Worker holds <code class="font-mono bg-slate-200 px-1 rounded">WEATHER_API_KEY</code> and <code class="font-mono bg-slate-200 px-1 rounded">GEMINI_API_KEY</code> as Cloudflare Secrets and exposes <code class="font-mono bg-slate-200 px-1 rounded">/weather</code> and <code class="font-mono bg-slate-200 px-1 rounded">/ai</code>.
           </p>
           <div class="flex gap-2">
-            <input id="proxy-endpoint-input" type="url" autocomplete="off" placeholder="https://winter-watch-proxy.your-name.workers.dev" class="flex-1 px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
-            <button onclick="saveKeyVaultConfig()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold">
+            <input id="proxy-endpoint-input" type="url" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="https://winter-watch-proxy.your-name.workers.dev" class="flex-1 px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-sky-500" />
+            <button type="button" onclick="saveKeyVaultConfig()" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold cursor-pointer">
               Connect
             </button>
           </div>
@@ -696,49 +766,49 @@
 
         <!-- MODE B: In-Memory Session Keys (Private JS Closure, Never Persisted) -->
         <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-900">Mode B: RAM-Only Session Keys (For Direct Browser Testing)</span>
+          <div class="flex items-center justify-between flex-wrap gap-1">
+            <span class="font-bold text-slate-900">Mode B: RAM-Only Session Keys (Direct Browser Testing)</span>
             <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-mono text-[10px] font-semibold">Wiped on Tab Close</span>
           </div>
           <p class="text-[11px] text-slate-500">
-            Keys entered below are held strictly inside a private JavaScript closure in memory—never saved to <code class="font-mono">localStorage</code>, cookies, URLs, or GitHub.
+            Keys entered below are held strictly inside a private JavaScript closure in RAM—never saved to <code class="font-mono">localStorage</code>, cookies, URLs, or GitHub.
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label for="weather-provider-select" class="block font-semibold text-slate-700 mb-1">Key-Gated Weather Provider</label>
-              <select id="weather-provider-select" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs">
+              <select id="weather-provider-select" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-amber-500">
                 <option value="visualcrossing">Visual Crossing (Forecast + 6-Winter History)</option>
                 <option value="openweathermap">OpenWeatherMap (5-Day / 3h Forecast API)</option>
               </select>
             </div>
             <div>
-              <label for="session-weather-key" class="block font-semibold text-slate-700 mb-1">Weather API Key (Required)</label>
-              <input id="session-weather-key" type="password" autocomplete="off" placeholder="Paste Visual Crossing or OWM key..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
+              <label for="session-weather-key" class="block font-semibold text-slate-700 mb-1">Weather API Key</label>
+              <input id="session-weather-key" type="password" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="Paste Visual Crossing or OWM key..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
             </div>
           </div>
 
           <div>
-            <label for="session-gemini-key" class="block font-semibold text-slate-700 mb-1">Google Gemini API Key (Required for AI Briefings)</label>
-            <input id="session-gemini-key" type="password" autocomplete="off" placeholder="AIzaSy... (held in RAM closure only)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white" />
+            <label for="session-gemini-key" class="block font-semibold text-slate-700 mb-1">Google Gemini API Key (For AI Briefings)</label>
+            <input id="session-gemini-key" type="password" autocomplete="off" onkeydown="if(event.key==='Enter') saveKeyVaultConfig()" placeholder="AIzaSy... (held in RAM closure only)" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs bg-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
 
           <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-            <button onclick="clearKeyVault()" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-xs">
+            <button type="button" onclick="clearKeyVault()" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-xs cursor-pointer">
               Purge RAM Keys
             </button>
-            <button onclick="saveKeyVaultConfig()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs">
+            <button type="button" onclick="saveKeyVaultConfig()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-sm cursor-pointer">
               Save to RAM Vault &amp; Sync Live APIs
             </button>
           </div>
-          <div id="proxy-save-msg" class="text-[11px] text-emerald-700 font-medium hidden"></div>
+          <div id="proxy-save-msg" class="text-[11px] text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 font-medium hidden"></div>
         </div>
 
         <!-- Copyable Cloudflare Worker Proxy Code for BOTH Weather + Gemini -->
         <div>
           <div class="flex items-center justify-between mb-1">
             <span class="font-bold text-slate-900">Unified Cloudflare Worker Proxy (Holds Both Secrets Server-Side)</span>
-            <button onclick="copyWorkerSnippet()" class="px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-[11px]">
+            <button type="button" onclick="copyWorkerSnippet()" class="px-2.5 py-1 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-[11px] cursor-pointer">
               Copy Worker Code
             </button>
           </div>
@@ -781,7 +851,7 @@
         </div>
       </div>
       <div class="bg-slate-50 px-5 py-3 border-t border-slate-200 flex justify-end">
-        <button onclick="closeSecurityModal()" class="px-4 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800">
+        <button type="button" onclick="closeSecurityModal()" class="px-4 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 cursor-pointer">
           Done
         </button>
       </div>
@@ -789,9 +859,296 @@
   </div>
 
   <!-- ======================================================================= -->
-  <!-- APPLICATION LOGIC (MODULAR, SELF-CONTAINED, TRACEABLE)                  -->
+  <!-- APPLICATION LOGIC (MODULAR, SELF-CONTAINED, ZERO-EXPOSURE KEY VAULT)    -->
   <!-- ======================================================================= -->
   <script>
+    /**
+     * 1. REAL COUNTY CAVAN MICROCLIMATE ZONES, DEPOTS & 16 PRIORITY ROUTES
+     */
+    const CAVAN_STATIONS = [
+      { id: 'cavan_central', name: 'Cavan / Moynehall', lat: 53.9785, lon: -7.3612, elev: 74, zone: 'Central Drumlin Basin' },
+      { id: 'cuilcagh_west', name: 'Cuilcagh / Blacklion Uplands', lat: 54.2310, lon: -7.8350, elev: 245, zone: 'West Cavan Upland Pass' },
+      { id: 'bailieborough_east', name: 'Bailieborough / East Drumlins', lat: 53.9168, lon: -6.9685, elev: 148, zone: 'East Cavan High Drumlins' },
+      { id: 'virginia_south', name: 'Virginia / N3 South', lat: 53.8335, lon: -7.0772, elev: 102, zone: 'Lough Ramor South Corridor' },
+      { id: 'belturbet_nw', name: 'Belturbet / N87 Erne Basin', lat: 54.1015, lon: -7.4520, elev: 58, zone: 'Upper Lough Erne Cold Sink' },
+      { id: 'cootehill_ne', name: 'Cootehill / R188 North-East', lat: 54.0725, lon: -7.0815, elev: 96, zone: 'North-East Monaghan Border' }
+    ];
+
+    const CAVAN_DEPOTS = [
+      {
+        id: 'moynehall',
+        name: 'Moynehall Central Depot & Brine Plant',
+        lat: 53.9785,
+        lon: -7.3612,
+        capacityTonnes: 1450,
+        trucks: ['CN-G01 (12t)', 'CN-G02 (12t)', 'CN-G03 (9t)', 'CN-G04 (9t)']
+      },
+      {
+        id: 'ballyconnell',
+        name: 'Ballyconnell West Sub-Depot',
+        lat: 54.1165,
+        lon: -7.5832,
+        capacityTonnes: 680,
+        trucks: ['CN-G05 (12t)', 'CN-G06 (9t)']
+      },
+      {
+        id: 'bailieborough',
+        name: 'Bailieborough East Sub-Depot',
+        lat: 53.9168,
+        lon: -6.9685,
+        capacityTonnes: 620,
+        trucks: ['CN-G07 (12t)', 'CN-G08 (9t)']
+      }
+    ];
+
+    const CAVAN_ROUTES = [
+      // PRIORITY 1 — NATIONAL PRIMARY / SECONDARY & HOSPITAL ACCESS (5 Routes, 137.1 km)
+      {
+        id: 'p1-n3-south',
+        code: 'N3 South',
+        name: 'Cavan Bypass – Stradone – Virginia – Meath Border (Maghera)',
+        priority: 1,
+        km: 34.2,
+        widthM: 7.5,
+        maxElev: 138,
+        stationId: 'virginia_south',
+        depot: 'Moynehall',
+        truck: 'CN-G01',
+        aadt: 11800,
+        criticalAssets: 'Dublin–Enniskillen Strategic Trunk, Cavan Ambulance Base',
+        coords: [[53.989, -7.362], [53.938, -7.265], [53.882, -7.172], [53.834, -7.077], [53.792, -7.022]]
+      },
+      {
+        id: 'p1-n3-north',
+        code: 'N3 North',
+        name: 'Cavan Bypass – Butlersbridge – Belturbet – Aghalane Border',
+        priority: 1,
+        km: 23.6,
+        widthM: 7.3,
+        maxElev: 88,
+        stationId: 'belturbet_nw',
+        depot: 'Moynehall',
+        truck: 'CN-G02',
+        aadt: 8900,
+        criticalAssets: 'Cross-Border Fermanagh Corridor, Erne Bridges',
+        coords: [[53.992, -7.365], [54.045, -7.388], [54.101, -7.448], [54.148, -7.475]]
+      },
+      {
+        id: 'p1-n54-n55',
+        code: 'N54 / N55',
+        name: 'Monaghan Border – Butlersbridge – Cavan – Ballinagh – Granard Border',
+        priority: 1,
+        km: 31.8,
+        widthM: 7.0,
+        maxElev: 124,
+        stationId: 'cavan_central',
+        depot: 'Moynehall',
+        truck: 'CN-G03',
+        aadt: 7600,
+        criticalAssets: 'Midlands–Ulster Freight Spine, Ballinagh Secondary School',
+        coords: [[54.112, -7.275], [54.045, -7.388], [53.989, -7.362], [53.928, -7.412], [53.865, -7.468]]
+      },
+      {
+        id: 'p1-n87-west',
+        code: 'N87 West',
+        name: 'Belturbet – Ballyconnell – Swanlinbar – Blacklion (Fermanagh)',
+        priority: 1,
+        km: 38.7,
+        widthM: 6.8,
+        maxElev: 185,
+        stationId: 'cuilcagh_west',
+        depot: 'Ballyconnell',
+        truck: 'CN-G05',
+        aadt: 5400,
+        criticalAssets: 'West Cavan Primary Lifeline, Ballyconnell Ambulance Post',
+        coords: [[54.101, -7.448], [54.116, -7.583], [54.185, -7.698], [54.288, -7.868]]
+      },
+      {
+        id: 'p1-r198-hosp',
+        code: 'R198 / R935',
+        name: 'Cavan General Hospital – Lisdaran – Moynehall Depot Spine',
+        priority: 1,
+        km: 8.8,
+        widthM: 7.0,
+        maxElev: 108,
+        stationId: 'cavan_central',
+        depot: 'Moynehall',
+        truck: 'CN-G04',
+        aadt: 9400,
+        criticalAssets: 'Cavan General Hospital A&E, Fire Station, Moynehall Brine Plant',
+        coords: [[54.004, -7.375], [53.991, -7.361], [53.978, -7.361]]
+      },
+
+      // PRIORITY 2 — STRATEGIC REGIONAL CORRIDORS (6 Routes, 177.0 km)
+      {
+        id: 'p2-r188-cootehill',
+        code: 'R188',
+        name: 'Cavan Town – Drung – Cootehill – Monaghan Border',
+        priority: 2,
+        km: 27.4,
+        widthM: 6.4,
+        maxElev: 132,
+        stationId: 'cootehill_ne',
+        depot: 'Moynehall',
+        truck: 'CN-G04',
+        aadt: 4650,
+        criticalAssets: 'Cootehill Primary Care Centre, St. Aidan’s Comprehensive School',
+        coords: [[53.992, -7.358], [54.032, -7.225], [54.072, -7.081], [54.105, -7.025]]
+      },
+      {
+        id: 'p2-r198-killashandra',
+        code: 'R198 West',
+        name: 'Cavan – Crossdoney – Killeshandra – Leitrim Border',
+        priority: 2,
+        km: 26.8,
+        widthM: 6.2,
+        maxElev: 118,
+        stationId: 'belturbet_nw',
+        depot: 'Moynehall',
+        truck: 'CN-G03',
+        aadt: 3850,
+        criticalAssets: 'Lakeland Dairies Killeshandra Plant, Regional School Bus Route',
+        coords: [[53.989, -7.362], [53.968, -7.435], [54.012, -7.532], [54.035, -7.615]]
+      },
+      {
+        id: 'p2-r194-virginia',
+        code: 'R194',
+        name: 'Virginia – Ballyjamesduff – Kilnaleck – Finea Border',
+        priority: 2,
+        km: 29.5,
+        widthM: 6.3,
+        maxElev: 156,
+        stationId: 'virginia_south',
+        depot: 'Bailieborough',
+        truck: 'CN-G08',
+        aadt: 4120,
+        criticalAssets: 'St. Clare’s College Ballyjamesduff, Agri-Food Cold Chain',
+        coords: [[53.834, -7.077], [53.866, -7.204], [53.858, -7.318], [53.812, -7.385]]
+      },
+      {
+        id: 'p2-r165-kingscourt',
+        code: 'R165 / R178',
+        name: 'Bailieborough – Kingscourt – Meath/Monaghan Borders',
+        priority: 2,
+        km: 24.6,
+        widthM: 6.4,
+        maxElev: 178,
+        stationId: 'bailieborough_east',
+        depot: 'Bailieborough',
+        truck: 'CN-G07',
+        aadt: 4980,
+        criticalAssets: 'Gypsum Industries, Dun a Rí School & Commuter Corridor',
+        coords: [[53.917, -6.968], [53.908, -6.805], [53.945, -6.785]]
+      },
+      {
+        id: 'p2-r191-shercock',
+        code: 'R191 / R162',
+        name: 'Cootehill – Shercock – Bailieborough – Mullagh',
+        priority: 2,
+        km: 35.2,
+        widthM: 6.2,
+        maxElev: 172,
+        stationId: 'bailieborough_east',
+        depot: 'Bailieborough',
+        truck: 'CN-G07',
+        aadt: 3740,
+        criticalAssets: 'Bailieborough Community School, East Cavan Drumlin Crest',
+        coords: [[54.072, -7.081], [53.998, -6.902], [53.917, -6.968], [53.814, -6.952]]
+      },
+      {
+        id: 'p2-r200-dowra',
+        code: 'R200 / R206',
+        name: 'Ballyconnell – Bawnboy – Glangevlin – Dowra (Leitrim Border)',
+        priority: 2,
+        km: 33.5,
+        widthM: 6.0,
+        maxElev: 215,
+        stationId: 'cuilcagh_west',
+        depot: 'Ballyconnell',
+        truck: 'CN-G06',
+        aadt: 2450,
+        criticalAssets: 'St. Mogue’s College Bawnboy, West Cavan Emergency Access',
+        coords: [[54.116, -7.583], [54.122, -7.685], [54.165, -7.845], [54.192, -7.918]]
+      },
+
+      // PRIORITY 3 — UPLAND & SECONDARY COMMUNITY CORRIDORS (5 Candidates, 81.8 km)
+      {
+        id: 'p3-lp1532-bellavally',
+        code: 'LP1532 / R200-Upland',
+        name: 'Bellavally Gap – Cuilcagh Foothills – Blacklion High Road',
+        priority: 3,
+        km: 18.4,
+        widthM: 5.5,
+        maxElev: 282,
+        stationId: 'cuilcagh_west',
+        depot: 'Ballyconnell',
+        truck: 'CN-G06',
+        aadt: 1420,
+        criticalAssets: 'School Bus Route (Glangevlin–Blacklion), Only Upland Bypass when N87 Floods',
+        coords: [[54.158, -7.795], [54.212, -7.832], [54.268, -7.865]]
+      },
+      {
+        id: 'p3-r205-ballyhaise',
+        code: 'R205',
+        name: 'Butlersbridge – Ballyhaise – Redhills – Monaghan Border',
+        priority: 3,
+        km: 16.9,
+        widthM: 6.0,
+        maxElev: 112,
+        stationId: 'cootehill_ne',
+        depot: 'Moynehall',
+        truck: 'CN-G02',
+        aadt: 2890,
+        criticalAssets: 'Teagasc Ballyhaise Agricultural College (600+ Daily Commuters)',
+        coords: [[54.045, -7.388], [54.052, -7.315], [54.095, -7.218]]
+      },
+      {
+        id: 'p3-r212-ardlogher',
+        code: 'R212',
+        name: 'Belturbet – Milltown – Killeshandra Link',
+        priority: 3,
+        km: 14.2,
+        widthM: 5.8,
+        maxElev: 94,
+        stationId: 'belturbet_nw',
+        depot: 'Ballyconnell',
+        truck: 'CN-G05',
+        aadt: 1960,
+        criticalAssets: 'Annalee/Erne River Valley Cold-Air Pooling Zone',
+        coords: [[54.101, -7.448], [54.062, -7.488], [54.012, -7.532]]
+      },
+      {
+        id: 'p3-r190-larah',
+        code: 'R190',
+        name: 'Stradone – Larah – Tullyvin – Cootehill Link',
+        priority: 3,
+        km: 17.5,
+        widthM: 5.8,
+        maxElev: 144,
+        stationId: 'cootehill_ne',
+        depot: 'Moynehall',
+        truck: 'CN-G04',
+        aadt: 2150,
+        criticalAssets: 'Larah National School & North-Central Drumlin Relief',
+        coords: [[53.938, -7.265], [53.992, -7.195], [54.072, -7.081]]
+      },
+      {
+        id: 'p3-r199-arva',
+        code: 'R199',
+        name: 'Killeshandra – Arva – Longford Border (Gowna)',
+        priority: 3,
+        km: 14.8,
+        widthM: 5.8,
+        maxElev: 136,
+        stationId: 'cavan_central',
+        depot: 'Moynehall',
+        truck: 'CN-G03',
+        aadt: 2340,
+        criticalAssets: 'Arva Market Town & Cross-Border Longford School Link',
+        coords: [[54.012, -7.532], [53.925, -7.582], [53.878, -7.565]]
+      }
+    ];
+
     /**
      * 2. PRIVATE ZERO-EXPOSURE KEY VAULT (Closure-isolated; never on window or localStorage)
      */
@@ -829,9 +1186,9 @@
      * 3. GLOBAL APPLICATION STATE (Strictly in-memory; zero localStorage/secrets)
      */
     const APP_STATE = {
-      scenario: 'live', // 'live' | 'sim-frost' | 'sim-severe'
-      liveForecasts: {}, // keyed by stationId
-      sixWinterArchive: {}, // keyed by stationId
+      scenario: 'live',
+      liveForecasts: {},
+      sixWinterArchive: {},
       activeWeatherSourceLabel: 'Bootstrap Feed (Configure Key/Proxy)',
       tonightPlan: null,
       selectedRouteIds: new Set(),
@@ -844,8 +1201,7 @@
     };
 
     /**
-     * 3. PHYSICAL ROAD SURFACE TEMPERATURE (RST) & METEOROLOGICAL ENGINE
-     * Computes transparent, auditable RST from hourly Open-Meteo atmospheric variables.
+     * 4. PHYSICAL ROAD SURFACE TEMPERATURE (RST) & METEOROLOGICAL ENGINE
      */
     function computeHourlyRST(hourData, stationElev, routeMaxElev) {
       const tAir = hourData.temp;
@@ -855,22 +1211,14 @@
       const solarWm2 = hourData.solar || 0;
       const precipMm = hourData.precip || 0;
 
-      // Convert wind to m/s
       const windMs = windKmh / 3.6;
-
-      // Clear-sky nocturnal radiative cooling factor (strongest when cloud < 30% and wind < 3 m/s)
       const clearSkyFactor = Math.max(0, (100 - cloudPct) / 100);
       const windMixingDamping = Math.max(0.25, 1 - (windMs / 12));
       const radiativeCooling = 2.65 * clearSkyFactor * windMixingDamping;
-
-      // Daytime/twilight shortwave solar road absorption
       const solarWarming = (solarWm2 / 1000) * 4.2;
 
-      // Environmental lapse rate (-0.65°C per 100m above station elevation)
       const elevDeltaM = Math.max(0, (routeMaxElev || stationElev) - stationElev);
       const elevAdjustment = -(elevDeltaM / 100) * 0.65;
-
-      // Wet-bulb evaporative cooling adjustment if damp/precipitating
       const evapCooling = precipMm > 0 ? 0.35 : 0.0;
 
       const rst = Number((tAir - radiativeCooling + solarWarming + elevAdjustment - evapCooling).toFixed(2));
@@ -912,7 +1260,6 @@
 
         if (useKeyGatedWeather) {
           if (provider === 'openweathermap') {
-            // OpenWeatherMap 5-Day / 3-Hour Forecast API (Key Required)
             const fetchUrl = proxyUrl
               ? `${proxyUrl}/weather?mode=forecast&provider=openweathermap&lat=${st.lat}&lon=${st.lon}`
               : `https://api.openweathermap.org/data/2.5/forecast?lat=${st.lat}&lon=${st.lon}&units=metric&appid=${encodeURIComponent(wKey)}`;
@@ -924,7 +1271,6 @@
             if (!resp.ok) throw new Error(`OpenWeatherMap HTTP ${resp.status} — verify your API key`);
             const data = await resp.json();
 
-            // Expand 3-hour OWM intervals into hourly steps across the 18-hour operational window
             const slices = (data.list || []).slice(0, 7);
             for (let s = 0; s < slices.length - 1; s++) {
               const cur = slices[s];
@@ -935,7 +1281,6 @@
                 const label = dt.toLocaleTimeString('en-IE', { timeZone: 'Europe/Dublin', hour: '2-digit', minute: '2-digit', hour12: false });
                 const temp = Number((cur.main.temp + (nxt.main.temp - cur.main.temp) * frac).toFixed(1));
                 const rh = cur.main.humidity + (nxt.main.humidity - cur.main.humidity) * frac;
-                // Magnus-Tetens dew point derivation from T and RH
                 const dewPoint = Number((temp - ((100 - rh) / 5)).toFixed(1));
                 const cloud = Math.round(cur.clouds.all + (nxt.clouds.all - cur.clouds.all) * frac);
                 const wind = Number(((cur.wind.speed + (nxt.wind.speed - cur.wind.speed) * frac) * 3.6).toFixed(1));
@@ -947,7 +1292,6 @@
             }
             APP_STATE.activeWeatherSourceLabel = proxyUrl ? 'OpenWeatherMap (Proxy Secret)' : 'OpenWeatherMap (Session Key)';
           } else {
-            // Visual Crossing Timeline Weather API (Key Required)
             const fetchUrl = proxyUrl
               ? `${proxyUrl}/weather?mode=forecast&provider=visualcrossing&lat=${st.lat}&lon=${st.lon}`
               : `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${st.lat},${st.lon}/next48hours?unitGroup=metric&include=hours&key=${encodeURIComponent(wKey)}`;
@@ -982,7 +1326,6 @@
             APP_STATE.activeWeatherSourceLabel = proxyUrl ? 'Visual Crossing (Proxy Secret)' : 'Visual Crossing (Session Key)';
           }
         } else {
-          // Unauthenticated bootstrap fallback so dashboard renders until user adds their key/proxy
           const url = `https://api.open-meteo.com/v1/forecast?latitude=${st.lat}&longitude=${st.lon}&hourly=temperature_2m,dew_point_2m,precipitation,rain,snowfall,cloud_cover,wind_speed_10m,shortwave_radiation&timezone=Europe%2FDublin&forecast_days=2`;
           displayEndpoint = `${url} [Bootstrap — enter Weather API Key or Proxy URL in Vault]`;
           const resp = await fetch(url);
@@ -1022,7 +1365,7 @@
     }
 
     /**
-     * Build Training Drill Overlays (clearly labeled when user tests frost/severe scenarios)
+     * Build Training Drill Overlays
      */
     function getActiveForecasts() {
       if (APP_STATE.scenario === 'live') {
@@ -1034,7 +1377,6 @@
       Object.values(cloned).forEach((entry) => {
         const elevFactor = (entry.station.elev - 70) / 100;
         entry.hours.forEach((h, idx) => {
-          // Overnight cooling curve peaking around 04:00–06:00 (indices 13..15)
           const nightDepth = Math.sin(Math.min(Math.PI, (idx / 16) * Math.PI));
           if (isSevere) {
             h.temp = Number((1.2 - nightDepth * 4.4 - elevFactor * 1.1).toFixed(1));
@@ -1044,12 +1386,11 @@
             h.precip = idx >= 7 && idx <= 13 ? 1.4 : 0.2;
             h.snow = entry.station.elev > 140 && idx >= 8 && idx <= 13 ? 1.8 : 0.0;
           } else {
-            // Classic Cavan drumlin radiative black-ice night
             h.temp = Number((2.8 - nightDepth * 3.6 - elevFactor * 0.8).toFixed(1));
             h.dewPoint = Number((h.temp - 0.5).toFixed(1));
             h.cloud = 14;
             h.wind = 6;
-            h.precip = idx === 3 ? 0.4 : 0.0; // Damp road before clear sky freeze!
+            h.precip = idx === 3 ? 0.4 : 0.0;
             h.snow = 0.0;
           }
           const recomputed = computeHourlyRST(h, entry.station.elev, entry.station.elev);
@@ -1060,8 +1401,7 @@
     }
 
     /**
-     * 4. FETCH 6 FULL WINTERS OF REAL HISTORICAL WEATHER (2020/21 – 2025/26)
-     * Uses Key-Gated Visual Crossing Archive (via Proxy or Session Key) with ERA5-Land fallback.
+     * 5. FETCH 6 FULL WINTERS OF REAL HISTORICAL WEATHER (2020/21 – 2025/26)
      */
     async function fetchSixWinterHistory() {
       const targetStations = ['cavan_central', 'bailieborough_east', 'cuilcagh_west'];
@@ -1129,7 +1469,6 @@
           const year = parseInt(dateStr.slice(0, 4), 10);
           const month = parseInt(dateStr.slice(5, 7), 10);
 
-          // Irish Winter Maintenance Season: October (10) through March (03)
           let seasonKey = null;
           if (month >= 10) {
             seasonKey = `${year}/${String((year + 1) % 100).padStart(2, '0')}`;
@@ -1144,7 +1483,6 @@
           const snow = row.snow;
           if (tMin === null || tMin === undefined) continue;
 
-          // Estimate nocturnal clear-sky Road Surface Minimum Temperature (RST_min)
           const clearBonus = precip < 0.5 ? 1.35 : 0.45;
           const estRstMin = tMin - clearBonus;
 
@@ -1178,7 +1516,7 @@
     }
 
     /**
-     * 5. DUTY ENGINEER DECISION ENGINE
+     * 6. DUTY ENGINEER DECISION ENGINE
      */
     function evaluateDutyDecision() {
       const forecasts = getActiveForecasts();
@@ -1187,7 +1525,6 @@
       let globalMaxPrecipFreeze = false;
       let globalMaxSnow = 0;
 
-      // Evaluate each route against its local microclimate station + elevation delta
       const routeEvaluations = CAVAN_ROUTES.map((route) => {
         const stForecast = forecasts[route.stationId] || Object.values(forecasts)[0];
         let routeMinRst = 99;
@@ -1202,10 +1539,8 @@
           if (adjusted.blackIceRisk) hasWetFreeze = true;
           if (h.snow > routeSnow) routeSnow = h.snow;
 
-          // First hour where RST drops to or below +0.5°C
           if (onsetLabel === 'None' && adjusted.rst <= 0.5) {
             onsetLabel = h.label;
-            // Dispatch trucks 90 minutes prior to freeze onset (or 18:30 earliest post-rush)
             const dispatchIdx = Math.max(2, idx - 2);
             dispatchLabel = stForecast.hours[dispatchIdx]?.label || '18:30';
           }
@@ -1218,7 +1553,6 @@
         if (hasWetFreeze) globalMaxPrecipFreeze = true;
         if (routeSnow > globalMaxSnow) globalMaxSnow = routeSnow;
 
-        // Determine Cavan County Council Treatment Matrix spread rate (g/m²)
         let recommendedRate = 0;
         let shouldTreat = false;
 
@@ -1234,17 +1568,16 @@
 
         if (shouldTreat) {
           if (routeSnow >= 1.5 || (routeMinRst <= -3.5 && hasWetFreeze)) {
-            recommendedRate = 40; // 2 x 20 g/m² severe snow / freezing rain
+            recommendedRate = 40;
           } else if (routeMinRst <= -2.0 || hasWetFreeze) {
-            recommendedRate = 20; // 20 g/m² deep frost / wet road freeze
+            recommendedRate = 20;
           } else if (routeMinRst <= 0.0) {
-            recommendedRate = 15; // 15 g/m² standard precautionary run
+            recommendedRate = 15;
           } else {
-            recommendedRate = 10; // 10 g/m² marginal frost precautionary
+            recommendedRate = 10;
           }
         }
 
-        // Salt calculation: length(m) * width(m) * spreadRate(g/m²) / 1,000,000 = tonnes
         const saltTonnes = Number(((route.km * 1000 * route.widthM * recommendedRate) / 1_000_000).toFixed(2));
 
         return {
@@ -1260,7 +1593,6 @@
         };
       });
 
-      // Overall Duty Engineer Call
       let actionCode = 'NO_GRIT';
       let headline = 'NO GRIT TONIGHT — ROAD SURFACES ABOVE FREEZING';
       let subline = `Minimum forecast RST is +${globalMinRst.toFixed(1)}°C (${coldestLocation}). Maintain standard evening weather watch.`;
@@ -1298,19 +1630,16 @@
         routes: routeEvaluations
       };
 
-      // Initialize user-toggleable selection to model recommendation
       APP_STATE.selectedRouteIds = new Set(activeRecRoutes.map(r => r.id));
     }
 
     /**
-     * 6. SENIOR ENGINEER NEXT-WINTER PRIORITY PROMOTION ENGINE
-     * Evaluates Priority 2 & Priority 3 routes using 6-winter Open-Meteo archive data + network risk.
+     * 7. SENIOR ENGINEER NEXT-WINTER PRIORITY PROMOTION ENGINE
      */
     function evaluateSeniorUpgrade() {
       const candidates = CAVAN_ROUTES.filter(r => r.priority >= 2);
 
       const ranked = candidates.map((route) => {
-        // Map route to nearest archive station + elevation adjustment
         let archiveKey = 'cavan_central';
         if (route.stationId === 'cuilcagh_west') archiveKey = 'cuilcagh_west';
         else if (['bailieborough_east', 'virginia_south', 'cootehill_ne'].includes(route.stationId)) archiveKey = 'bailieborough_east';
@@ -1320,26 +1649,16 @@
         const baseBlackIce = arch ? arch.summary.avgBlackIce : 26.0;
         const baseSevere = arch ? arch.summary.avgSevere : 9.0;
 
-        // Elevation microclimate multiplier for exact route crest elevation
         const elevBonus = Math.max(0, (route.maxElev - (arch?.station.elev || 100)) / 100) * 6.5;
         const estFreezeNights = Number((baseFreeze + elevBonus).toFixed(1));
         const estBlackIceNights = Number((baseBlackIce + elevBonus * 0.75).toFixed(1));
 
-        // 1. 6-Winter Ice & Freeze Severity Score (0–40 pts)
         const weatherScore = Math.min(40, (estFreezeNights / 68) * 24 + (estBlackIceNights / 45) * 16);
-
-        // 2. Elevation & Cold-Air Drainage Exposure (0–25 pts)
         const terrainScore = Math.min(25, ((route.maxElev - 55) / 230) * 25);
-
-        // 3. Traffic & Critical Community / School Bus Connectivity (0–20 pts)
         const trafficScore = Math.min(20, (route.aadt / 5600) * 14 + (route.criticalAssets.includes('School') || route.criticalAssets.includes('Hospital') ? 6 : 3));
-
-        // 4. Diversion Gap Penalty (0–15 pts: higher if isolated from existing P1 corridor)
         const isolationScore = route.priority === 3 ? (route.maxElev > 200 ? 15 : 11) : 8;
 
         const compositeScore = Number((weatherScore + terrainScore + trafficScore + isolationScore).toFixed(1));
-
-        // Additional salt per standard 15 g/m² run if promoted
         const extraSaltPerRun = Number(((route.km * 1000 * route.widthM * 15) / 1_000_000).toFixed(2));
         const targetTier = route.priority === 3 ? 'Priority 2 (Normal Winter Service)' : 'Priority 1 (All-Weather Guaranteed)';
 
@@ -1365,7 +1684,7 @@
     }
 
     /**
-     * 7. REGISTER COMPLETE DATA PROVENANCE LINEAGE
+     * 8. REGISTER COMPLETE DATA PROVENANCE LINEAGE
      */
     function buildProvenanceRegistry() {
       const plan = APP_STATE.tonightPlan;
@@ -1376,8 +1695,8 @@
       APP_STATE.provenanceStore = {
         min_rst_tonight: {
           title: 'Minimum Estimated Road Surface Temperature (RST) Tonight',
-          sourceSystem: 'Open-Meteo Hourly Forecast API + Cavan RST Energy Balance Model',
-          endpoint: centralForecast?.apiUrl || 'https://api.open-meteo.com/v1/forecast',
+          sourceSystem: `${APP_STATE.activeWeatherSourceLabel} + Cavan RST Energy Balance Model`,
+          endpoint: centralForecast?.apiUrl || 'https://weather.visualcrossing.com/...',
           formula: 'RST = T_air - 2.65 * ((100 - Cloud%)/100) * max(0.25, 1 - Wind_ms/12) + (Solar/1000)*4.2 - 0.0065*(RouteElev - StationElev)',
           valueSummary: `${plan.globalMinRst.toFixed(2)}°C on ${plan.coldestLocation} (${APP_STATE.scenario === 'live' ? 'Live Forecast' : 'Training Drill Overlay'})`,
           reference: 'UK/Irish Ice Cast Thermal Balance Principles & Cavan County Council Winter Service Plan §A7'
@@ -1427,20 +1746,20 @@
           sourceSystem: 'OpenStreetMap / WGS84 County Cavan Corridor Waypoints',
           endpoint: 'Tiles: https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png | Depots: Moynehall (53.9785, -7.3612), Ballyconnell (54.1165, -7.5832), Bailieborough (53.9168, -6.9685)',
           formula: '16 primary/regional/upland corridors mapped with real townland coordinates and elevation crests',
-          valueSummary: '400.4 km modeled across P1 (137.1 km), P2 (177.0 km), and P3 review candidates (81.8 km)',
+          valueSummary: '395.9 km modeled across P1 (137.1 km), P2 (177.0 km), and P3 review candidates (81.8 km)',
           reference: 'Cavan County Council Salting Map & Ordnance Survey Ireland Elevations'
         },
         archive_api_query: {
           title: 'Six Winters of Real Weather History (Oct 2020 – Mar 2026)',
-          sourceSystem: 'Open-Meteo Historical Weather Archive API (ERA5-Land Reanalysis)',
+          sourceSystem: 'Historical Weather Archive API (2020/21 – 2025/26)',
           endpoint: uplandArchive?.apiUrl || 'https://archive-api.open-meteo.com/v1/archive?start_date=2020-10-01&end_date=2026-03-31',
-          formula: 'Filters Oct 1 – Mar 31 across 6 winters (2020/21, 2021/22, 2022/23, 2023/24, 2024/25, 2025/26). Counts nights where nocturnal RST_min <= 0.0°C and Black Ice nights (RST_min <= 0.0°C with T-Td <= 1.6°C or precip > 0.2mm).',
+          formula: 'Filters Oct 1 – Mar 31 across 6 winters (2020/21, 2021/22, 2022/23, 2023/24, 2024/25, 2025/26). Counts nights where nocturnal RST_min <= 0.0°C and Black Ice nights.',
           valueSummary: '3 representative Cavan elevation stations x 2,008 days = 6,024 real daily meteorological records',
-          reference: 'Copernicus ERA5-Land via Open-Meteo Archive (Key-Free Public API)'
+          reference: 'Visual Crossing Historical Timeline / Copernicus ERA5-Land Archive'
         },
         archive_subzero_nights: {
           title: '6-Winter Mean Sub-Zero RST Nights per Season',
-          sourceSystem: 'Open-Meteo Historical Archive (2020/21 – 2025/26)',
+          sourceSystem: '6-Winter Historical Weather Archive (2020/21 – 2025/26)',
           endpoint: uplandArchive?.apiUrl || 'https://archive-api.open-meteo.com/v1/archive',
           formula: 'Mean annual count of Oct–Mar nights with estimated Road Surface Temp <= 0.0°C, adjusted for route crest elevation (+6.5 nights per 100m above station).',
           valueSummary: topSenior ? `${topSenior.code}: ${topSenior.estFreezeNights} freeze nights/winter` : 'Calculating...',
@@ -1448,7 +1767,7 @@
         },
         archive_black_ice: {
           title: '6-Winter Mean High-Risk Black Ice / Hoar Frost Nights',
-          sourceSystem: 'Open-Meteo Historical Archive Dew-Point & Precipitation Cross-Check',
+          sourceSystem: '6-Winter Archive Dew-Point & Precipitation Cross-Check',
           endpoint: uplandArchive?.apiUrl || 'https://archive-api.open-meteo.com/v1/archive',
           formula: 'Nights where RST_min <= 0.0°C AND ((T_min - DewPoint_min) <= 1.6°C OR daily precipitation > 0.2mm).',
           valueSummary: topSenior ? `${topSenior.code}: ${topSenior.estBlackIceNights} black-ice nights/winter` : 'Calculating...',
@@ -1486,7 +1805,7 @@
     }
 
     /**
-     * 8. GEMINI AI BRIEFING GENERATOR (KEY-GATED PROXY / RAM VAULT + DETERMINISTIC FALLBACK)
+     * 9. GEMINI AI BRIEFING GENERATOR (KEY-GATED PROXY / RAM VAULT + FALLBACK)
      */
     async function callGeminiGrounded(promptText) {
       const payload = {
@@ -1505,7 +1824,6 @@
         ? `${proxyUrl}/ai`
         : `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
 
-      // Exponential backoff retry
       const delays = [1000, 2000, 4000];
       for (let attempt = 0; attempt <= delays.length; attempt++) {
         try {
@@ -1546,7 +1864,7 @@
       const p1Count = activeRoutes.filter(r => r.priority === 1).length;
       const p2Count = activeRoutes.filter(r => r.priority === 2).length;
 
-      const prompt = `Tonight's Cavan County Council 15:00 Duty Engineer data (${APP_STATE.scenario === 'live' ? 'Live Open-Meteo Forecast' : 'Simulation Drill'}):
+      const prompt = `Tonight's Cavan County Council 15:00 Duty Engineer data (${APP_STATE.scenario === 'live' ? APP_STATE.activeWeatherSourceLabel : 'Simulation Drill'}):
 - Recommendation: ${plan.headline}
 - Minimum Forecast RST: ${plan.globalMinRst.toFixed(1)}°C at ${plan.coldestLocation}
 - First Freeze Onset (RST <= +0.5°C): ${plan.earliestOnset}; Recommended First Truck Departure: ${plan.earliestDispatch}
@@ -1558,10 +1876,9 @@ Provide a concise afternoon shift briefing for the Duty Engineer.`;
         label.textContent = `${res.source} • Zero-Key Safe`;
         box.textContent = res.text;
       } catch (e) {
-        // Deterministic meteorological fallback so public deployments without a proxy still work seamlessly
-        label.textContent = `Deterministic Synthesis • Grounded on Open-Meteo`;
+        label.textContent = `Deterministic Fallback • Enter Gemini Key in Vault`;
         if (plan.actionCode === 'NO_GRIT') {
-          box.textContent = `Open-Meteo hourly telemetry across all six County Cavan stations indicates minimum Road Surface Temperatures staying above +${plan.globalMinRst.toFixed(1)}°C (${plan.coldestLocation}) through 09:00 tomorrow. Zero precautionary salt spread is required tonight, conserving the 2,750-tonne depot reserve. Duty Engineer sign-off is requested to log a formal No-Grit / Evening Watch decision.`;
+          box.textContent = `Hourly telemetry across all six County Cavan stations indicates minimum Road Surface Temperatures staying above +${plan.globalMinRst.toFixed(1)}°C (${plan.coldestLocation}) through 09:00 tomorrow. Zero precautionary salt spread is required tonight, conserving the 2,750-tonne depot reserve. Duty Engineer sign-off is requested to log a formal No-Grit / Evening Watch decision.`;
         } else {
           box.textContent = `Forecast thermal balance shows RST falling to ${plan.globalMinRst.toFixed(1)}°C on ${plan.coldestLocation}, crossing +0.5°C at ${plan.earliestOnset}. Dispatching ${activeRoutes.length} routes (${p1Count} P1, ${p2Count} P2) starting at ${plan.earliestDispatch} applies ${totalSalt} tonnes of rock salt ahead of ice nucleation. Duty Engineer review and authorization are required before depot release.`;
         }
@@ -1574,9 +1891,9 @@ Provide a concise afternoon shift briefing for the Duty Engineer.`;
       const runnerUp = APP_STATE.seniorRankings[1];
       if (!top) return;
 
-      box.innerHTML = `<span class="text-slate-400 italic">Synthesizing 6-winter Open-Meteo archive evidence for Senior Engineer...</span>`;
+      box.innerHTML = `<span class="text-slate-400 italic">Synthesizing 6-winter archive evidence for Senior Engineer...</span>`;
 
-      const prompt = `County Cavan Senior Engineer Annual Priority Upgrade Review (based on 6 winters 2020/21–2025/26 Open-Meteo Historical Archive):
+      const prompt = `County Cavan Senior Engineer Annual Priority Upgrade Review (based on 6 winters 2020/21–2025/26 Historical Weather Archive):
 - #1 Candidate Route: ${top.code} (${top.name}), currently Priority ${top.priority}, proposed upgrade to ${top.targetTier}.
 - 6-Winter Mean Exposure: ${top.estFreezeNights} sub-zero RST nights/winter and ${top.estBlackIceNights} high-risk black-ice nights/winter at ${top.maxElev}m elevation.
 - Composite Upgrade Score: ${top.compositeScore}/100.
@@ -1588,15 +1905,15 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         const res = await callGeminiGrounded(prompt);
         box.textContent = res.text;
       } catch (e) {
-        box.textContent = `Across six real winters (2020/21–2025/26) from the Open-Meteo Archive, ${top.code} (${top.name}, ${top.maxElev}m ASL) averaged ${top.estFreezeNights} sub-zero RST nights and ${top.estBlackIceNights} black-ice nights per season, achieving the highest composite score (${top.compositeScore}/100) ahead of ${runnerUp?.code} (${runnerUp?.compositeScore}/100). Promoting ${top.code} to ${top.targetTier} adds only +${top.extraSaltPerRun} tonnes per run—comfortably absorbed within Cavan's 2,750-tonne depot reserve. Senior Engineer endorsement is required to submit this change to the Roads SPC.`;
+        box.textContent = `Across six real winters (2020/21–2025/26) from the Historical Archive, ${top.code} (${top.name}, ${top.maxElev}m ASL) averaged ${top.estFreezeNights} sub-zero RST nights and ${top.estBlackIceNights} black-ice nights per season, achieving the highest composite score (${top.compositeScore}/100) ahead of ${runnerUp?.code} (${runnerUp?.compositeScore}/100). Promoting ${top.code} to ${top.targetTier} adds only +${top.extraSaltPerRun} tonnes per run—comfortably absorbed within Cavan's 2,750-tonne depot reserve. Senior Engineer endorsement is required to submit this change to the Roads SPC.`;
       }
     }
 
     /**
-     * 9. UI RENDERING: MAP, CHARTS, TABLES, AND PROVENANCE DRAWER
+     * 10. UI RENDERING: MAP, CHARTS, TABLES, AND PROVENANCE DRAWER
      */
     function initCavanMap() {
-      if (APP_STATE.mapInstance) return;
+      if (APP_STATE.mapInstance || !window.L) return;
       const map = L.map('cavan-map', { scrollWheelZoom: false }).setView([54.02, -7.38], 9);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1604,7 +1921,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         attribution: '&copy; OpenStreetMap contributors | Cavan County Council Routes'
       }).addTo(map);
 
-      // Add Depots
       CAVAN_DEPOTS.forEach((depot) => {
         const icon = L.divIcon({
           className: 'custom-depot-icon',
@@ -1625,7 +1941,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       const map = APP_STATE.mapInstance;
       if (!map || !APP_STATE.tonightPlan) return;
 
-      // Clear existing route lines & weather markers
       Object.values(APP_STATE.routeLayers).forEach(layer => map.removeLayer(layer));
       Object.values(APP_STATE.stationMarkers).forEach(marker => map.removeLayer(marker));
       APP_STATE.routeLayers = {};
@@ -1633,7 +1948,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
 
       const forecasts = getActiveForecasts();
 
-      // Draw each Cavan road corridor
       APP_STATE.tonightPlan.routes.forEach((route) => {
         const isSelected = APP_STATE.selectedRouteIds.has(route.id);
         const color = route.priority === 1 ? '#e11d48' : route.priority === 2 ? '#0284c7' : '#d97706';
@@ -1657,7 +1971,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
                   Length: <strong>${route.km} km</strong> &bull; Crest: <strong>${route.maxElev}m ASL</strong> &bull; Tonight Min RST: <strong class="font-mono">${route.routeMinRst.toFixed(1)}°C</strong> &bull; Truck: <strong>${route.truck}</strong> (${route.dispatchLabel})
                 </div>
               </div>
-              <button onclick="inspectProvenance('active_routes')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-sky-700 font-mono text-[11px] shrink-0">
+              <button type="button" onclick="inspectProvenance('active_routes')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-sky-700 font-mono text-[11px] shrink-0 cursor-pointer">
                 Provenance [src]
               </button>
             </div>
@@ -1667,10 +1981,9 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         APP_STATE.routeLayers[route.id] = polyline;
       });
 
-      // Draw live microclimate temperature pins
       CAVAN_STATIONS.forEach((st) => {
         const stData = forecasts[st.id];
-        if (!stData) return;
+        if (!stData || !stData.hours.length) return;
         const minRst = Math.min(...stData.hours.map(h => h.rst));
         const pillBg = minRst <= 0 ? '#be123c' : minRst <= 1.0 ? '#b45309' : '#047857';
 
@@ -1689,15 +2002,12 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       });
     }
 
-    /**
-     * Render Responsive SVG 24-Hour Air Temp, Dew Point, and RST Curve
-     */
     function renderHourlyChart() {
       const container = document.getElementById('hourly-chart-container');
       const stationId = document.getElementById('station-chart-select').value;
       const forecasts = getActiveForecasts();
       const stData = forecasts[stationId];
-      if (!stData) return;
+      if (!stData || !stData.hours.length) return;
 
       const hours = stData.hours;
       const w = 520;
@@ -1714,7 +2024,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       const maxY = Math.ceil(Math.max(...allVals) + 1);
       const spanY = Math.max(4, maxY - minY);
 
-      const xFor = (i) => padL + (i / (hours.length - 1)) * plotW;
+      const xFor = (i) => padL + (i / Math.max(1, hours.length - 1)) * plotW;
       const yFor = (val) => padT + ((maxY - val) / spanY) * plotH;
 
       const zeroY = yFor(0);
@@ -1722,7 +2032,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       const pathFor = (key) =>
         hours.map((d, i) => `${i === 0 ? 'M' : 'L'} ${xFor(i).toFixed(1)} ${yFor(d[key]).toFixed(1)}`).join(' ');
 
-      // Grid lines
       let gridSvg = '';
       for (let t = minY; t <= maxY; t += 2) {
         const y = yFor(t);
@@ -1732,7 +2041,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         `;
       }
 
-      // X labels every 3 hours
       let xLabels = '';
       hours.forEach((d, i) => {
         if (i % 3 === 0) {
@@ -1740,7 +2048,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         }
       });
 
-      // Freezing danger shading below 0°C
       const freezeBand = zeroY < padT + plotH
         ? `<rect x="${padL}" y="${Math.max(padT, zeroY)}" width="${plotW}" height="${Math.max(0, padT + plotH - Math.max(padT, zeroY))}" fill="#ffe4e6" opacity="0.45" />`
         : '';
@@ -1750,11 +2057,8 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
           ${freezeBand}
           ${gridSvg}
           ${xLabels}
-          <!-- Dew Point -->
           <path d="${pathFor('dewPoint')}" fill="none" stroke="#94a3b8" stroke-width="1.75" stroke-dasharray="3,3" />
-          <!-- 2m Air Temp -->
           <path d="${pathFor('temp')}" fill="none" stroke="#0284c7" stroke-width="2.25" />
-          <!-- Estimated RST -->
           <path d="${pathFor('rst')}" fill="none" stroke="#d97706" stroke-width="2.75" />
           ${hours.map((d, i) => `
             <circle cx="${xFor(i)}" cy="${yFor(d.rst)}" r="2.8" fill="${d.rst <= 0 ? '#e11d48' : '#d97706'}">
@@ -1771,14 +2075,10 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       `;
     }
 
-    /**
-     * Render Duty Engineer Dashboard KPIs & Dispatch Table
-     */
     function renderDutyView() {
       const plan = APP_STATE.tonightPlan;
       if (!plan) return;
 
-      // Update Verdict Card styling
       const card = document.getElementById('duty-verdict-card');
       const iconBox = document.getElementById('verdict-icon-box');
       const badge = document.getElementById('feed-mode-badge');
@@ -1808,7 +2108,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       document.getElementById('verdict-headline').textContent = plan.headline;
       document.getElementById('verdict-subline').textContent = plan.subline;
 
-      // KPIs
       const minRstEl = document.getElementById('kpi-min-rst');
       minRstEl.textContent = `${plan.globalMinRst > 0 ? '+' : ''}${plan.globalMinRst.toFixed(1)}°C`;
       minRstEl.className = `text-lg font-bold font-mono mt-1 ${plan.globalMinRst <= 0 ? 'text-rose-600' : 'text-emerald-700'}`;
@@ -1819,7 +2118,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
 
       recalculateCustomSalt();
 
-      // Dispatch Table
       const tbody = document.getElementById('dispatch-table-body');
       const overrideVal = document.getElementById('duty-spread-override').value;
 
@@ -1829,43 +2127,43 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
           ? (overrideVal !== 'auto' ? parseInt(overrideVal, 10) : (r.recommendedRate || 15))
           : 0;
         const effectiveSalt = Number(((r.km * 1000 * r.widthM * effectiveRate) / 1_000_000).toFixed(2));
-    function saveKeyVaultConfig() {
-      const urlVal = document.getElementById('proxy-endpoint-input').value.trim();
-      const providerVal = document.getElementById('weather-provider-select').value;
-      const wKeyVal = document.getElementById('session-weather-key').value.trim();
-      const gKeyVal = document.getElementById('session-gemini-key').value.trim();
+        const tierBadge = r.priority === 1
+          ? 'bg-rose-100 text-rose-800'
+          : r.priority === 2
+          ? 'bg-sky-100 text-sky-800'
+          : 'bg-amber-100 text-amber-800';
 
-      KEY_VAULT.configure({
-        url: urlVal,
-        provider: providerVal,
-        wKey: wKeyVal,
-        gKey: gKeyVal
-      });
+        return `
+          <tr class="${checked ? 'bg-sky-50/40' : 'hover:bg-slate-50 opacity-75'}">
+            <td class="py-2.5 px-2">
+              <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleRouteSelection('${r.id}')" class="w-4 h-4 rounded border-slate-300 text-sky-600 focus:ring-sky-500 cursor-pointer" />
+            </td>
+            <td class="py-2.5 px-2">
+              <div class="font-bold text-slate-900">${r.code} <span class="font-normal text-slate-500">(${r.km} km)</span></div>
+              <div class="text-[11px] text-slate-500 line-clamp-1">${r.name}</div>
+            </td>
+            <td class="py-2.5 px-2">
+              <span class="px-2 py-0.5 rounded-full font-mono font-bold text-[10px] ${tierBadge}">P${r.priority}</span>
+            </td>
+            <td class="py-2.5 px-2">
+              <div class="font-medium text-slate-800">${r.depot}</div>
+              <div class="font-mono text-[11px] text-slate-500">${r.truck}</div>
+            </td>
+            <td class="py-2.5 px-2 font-mono font-semibold text-slate-900">
+              ${checked ? (r.dispatchLabel !== 'Standby' ? r.dispatchLabel : '19:30') : 'Standby'}
+            </td>
+            <td class="py-2.5 px-2 font-mono font-bold ${r.routeMinRst <= 0 ? 'text-rose-600' : 'text-slate-700'}">
+              ${r.routeMinRst > 0 ? '+' : ''}${r.routeMinRst.toFixed(1)}°C
+            </td>
+            <td class="py-2.5 px-2 font-mono">
+              ${checked ? `<span class="font-semibold text-slate-900">${effectiveRate} g/m²</span><div class="text-[11px] text-slate-500">${effectiveSalt.toFixed(1)} t</div>` : '<span class="text-slate-400">0 t</span>'}
+            </td>
+          </tr>
+        `;
+      }).join('');
 
-      const msg = document.getElementById('proxy-save-msg');
-      const mode = KEY_VAULT.getAuthMode();
-      msg.textContent = mode === 'PROXY_SERVER_SECRETS'
-        ? `Connected to Zero-Exposure Proxy (${urlVal}). Re-syncing key-gated Weather & Gemini telemetry...`
-        : mode === 'RAM_SESSION_KEYS'
-        ? `Stored keys in private RAM closure (${providerVal.toUpperCase()} + Gemini). Re-syncing live telemetry...`
-        : 'Vault cleared — running in unauthenticated bootstrap mode.';
-      msg.classList.remove('hidden');
-
-      // Force fresh archive fetch if switching weather providers
-      APP_STATE.sixWinterArchive = {};
-      refreshAllData();
-    }
-
-    function clearKeyVault() {
-      KEY_VAULT.clear();
-      document.getElementById('proxy-endpoint-input').value = '';
-      document.getElementById('session-weather-key').value = '';
-      document.getElementById('session-gemini-key').value = '';
-      const msg = document.getElementById('proxy-save-msg');
-      msg.textContent = 'All RAM keys and proxy URLs purged from memory.';
-      msg.classList.remove('hidden');
-      APP_STATE.sixWinterArchive = {};
-      refreshAllData();
+      updateMapLayers();
+      renderHourlyChart();
     }
 
     function toggleRouteSelection(routeId) {
@@ -1910,9 +2208,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       document.getElementById('kpi-salt-stock').textContent = `${((totalSalt / 2750) * 100).toFixed(1)}% of 2,750t stock`;
     }
 
-    /**
-     * Render Senior Engineer 6-Winter Historical View & Ranking Table
-     */
     function renderSeniorView() {
       const rankings = APP_STATE.seniorRankings;
       if (!rankings || rankings.length === 0) return;
@@ -1929,7 +2224,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       document.getElementById('kpi-senior-salt').textContent = `+${top.extraSaltPerRun} t/run`;
       document.getElementById('kpi-senior-capacity').textContent = `Fits 2,750t reserve`;
 
-      // Populate Ranking Table
       const tbody = document.getElementById('senior-ranking-body');
       tbody.innerHTML = rankings.map((r, idx) => `
         <tr class="${idx === 0 ? 'bg-indigo-50/60' : 'hover:bg-slate-50'}">
@@ -1956,7 +2250,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         </tr>
       `).join('');
 
-      // Populate Senior Engineer dropdown
       const select = document.getElementById('senior-selected-route');
       select.innerHTML = rankings.map((r, idx) =>
         `<option value="${r.id}">#${idx + 1} ${r.code} — P${r.priority} to P${r.priority - 1} (Score ${r.compositeScore})</option>`
@@ -1965,9 +2258,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
       renderSixWinterChart();
     }
 
-    /**
-     * Render Responsive SVG 6-Winter Historical Comparison Chart
-     */
     function renderSixWinterChart() {
       const container = document.getElementById('six-winter-chart-container');
       const lowland = APP_STATE.sixWinterArchive['cavan_central'];
@@ -2002,19 +2292,16 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         const upH = (upVal / maxVal) * plotH;
 
         barsSvg += `
-          <!-- Lowland bar -->
           <rect x="${cx - barW - 2}" y="${padT + plotH - lowH}" width="${barW}" height="${lowH}" rx="3" fill="#0284c7">
             <title>${k} Cavan Drumlins (74m): ${lowVal} freeze nights</title>
           </rect>
           <text x="${cx - barW / 2 - 2}" y="${padT + plotH - lowH - 4}" text-anchor="middle" font-size="8.5" fill="#0369a1" font-family="JetBrains Mono">${lowVal}</text>
 
-          <!-- Upland bar -->
           <rect x="${cx + 2}" y="${padT + plotH - upH}" width="${barW}" height="${upH}" rx="3" fill="#4f46e5">
             <title>${k} Cuilcagh Uplands (245m): ${upVal} freeze nights</title>
           </rect>
           <text x="${cx + barW / 2 + 2}" y="${padT + plotH - upH - 4}" text-anchor="middle" font-size="8.5" fill="#4338ca" font-family="JetBrains Mono">${upVal}</text>
 
-          <!-- Season label -->
           <text x="${cx}" y="${h - 10}" text-anchor="middle" font-size="9.5" fill="#475569" font-family="JetBrains Mono">${k}</text>
         `;
       });
@@ -2041,7 +2328,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
     }
 
     /**
-     * 10. HUMAN-IN-THE-LOOP SIGN-OFF HANDLERS & AUDIT LOG
+     * 11. HUMAN-IN-THE-LOOP SIGN-OFF HANDLERS & AUDIT LOG
      */
     function submitDutyDecision(decisionType) {
       const nameInput = document.getElementById('duty-engineer-name');
@@ -2114,7 +2401,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         sixWinterFreezeAvg: `${routeObj.estFreezeNights} nights/yr`,
         compositeScore: `${routeObj.compositeScore}/100`,
         extraSaltPerRun: `+${routeObj.extraSaltPerRun} tonnes`,
-        notes: rationale || 'Endorsed based on 6-winter Open-Meteo archive severity and network access.'
+        notes: rationale || 'Endorsed based on 6-winter archive severity and network access.'
       };
 
       APP_STATE.auditLog.unshift(entry);
@@ -2146,7 +2433,6 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         `).join('');
       }
 
-      // Render complete provenance registry
       const regList = document.getElementById('provenance-registry-list');
       regList.innerHTML = Object.entries(APP_STATE.provenanceStore).map(([key, item]) => `
         <div onclick="inspectProvenance('${key}')" class="prov-trigger p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50/70">
@@ -2176,7 +2462,7 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
     }
 
     /**
-     * 11. PROVENANCE & SECURITY MODALS + TAB SWITCHING
+     * 12. PROVENANCE & KEY-VAULT MODALS + TAB SWITCHING
      */
     function inspectProvenance(key) {
       const item = APP_STATE.provenanceStore[key];
@@ -2215,24 +2501,51 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
     }
 
     function openSecurityModal() {
-      document.getElementById('security-modal').classList.remove('hidden');
+      const modal = document.getElementById('security-modal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeSecurityModal() {
-      document.getElementById('security-modal').classList.add('hidden');
+      const modal = document.getElementById('security-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
-    function saveProxyEndpoint() {
-      const val = document.getElementById('proxy-endpoint-input').value.trim();
-      APP_STATE.customProxyUrl = val;
+    function saveKeyVaultConfig() {
+      const urlVal = document.getElementById('proxy-endpoint-input').value.trim();
+      const providerVal = document.getElementById('weather-provider-select').value;
+      const wKeyVal = document.getElementById('session-weather-key').value.trim();
+      const gKeyVal = document.getElementById('session-gemini-key').value.trim();
+
+      KEY_VAULT.configure({
+        url: urlVal,
+        provider: providerVal,
+        wKey: wKeyVal,
+        gKey: gKeyVal
+      });
+
       const msg = document.getElementById('proxy-save-msg');
-      msg.textContent = val
-        ? `Proxy endpoint configured (${val}). Regenerating AI briefings securely...`
-        : 'Cleared custom proxy; using built-in secure runtime channel.';
+      const mode = KEY_VAULT.getAuthMode();
+      msg.textContent = mode === 'PROXY_SERVER_SECRETS'
+        ? `Connected to Zero-Exposure Proxy (${urlVal}). Syncing key-gated Weather & Gemini telemetry...`
+        : mode === 'RAM_SESSION_KEYS'
+        ? `Stored keys in private RAM closure (${providerVal.toUpperCase()} + Gemini). Syncing live telemetry...`
+        : 'Vault cleared — running in unauthenticated bootstrap mode.';
       msg.classList.remove('hidden');
-      buildProvenanceRegistry();
-      generateDutyAIBriefing(true);
-      generateSeniorAIBriefing(true);
+
+      APP_STATE.sixWinterArchive = {};
+      refreshAllData();
+    }
+
+    function clearKeyVault() {
+      KEY_VAULT.clear();
+      document.getElementById('proxy-endpoint-input').value = '';
+      document.getElementById('session-weather-key').value = '';
+      document.getElementById('session-gemini-key').value = '';
+      const msg = document.getElementById('proxy-save-msg');
+      msg.textContent = 'All RAM keys and proxy URLs purged from memory.';
+      msg.classList.remove('hidden');
+      APP_STATE.sixWinterArchive = {};
+      refreshAllData();
     }
 
     function copyWorkerSnippet() {
@@ -2254,10 +2567,10 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         const btn = document.getElementById(`tab-${t}`);
         if (t === tab) {
           view.classList.remove('hidden');
-          btn.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/40 whitespace-nowrap transition';
+          btn.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/40 whitespace-nowrap transition cursor-pointer';
         } else {
           view.classList.add('hidden');
-          btn.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition';
+          btn.className = 'inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 border border-transparent whitespace-nowrap transition cursor-pointer';
         }
       });
       if (tab === 'duty' && APP_STATE.mapInstance) {
@@ -2282,11 +2595,12 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         hour: '2-digit',
         minute: '2-digit'
       });
-      document.getElementById('dublin-clock').textContent = `Dublin Local: ${nowStr}`;
+      const clockEl = document.getElementById('dublin-clock');
+      if (clockEl) clockEl.textContent = `Dublin Local: ${nowStr}`;
     }
 
     /**
-     * 12. INITIALIZATION PIPELINE
+     * 13. INITIALIZATION PIPELINE
      */
     async function refreshAllData() {
       const statusPill = document.getElementById('live-status-pill');
@@ -2316,16 +2630,15 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         const authMode = KEY_VAULT.getAuthMode();
         if (authMode === 'PROXY_SERVER_SECRETS') {
           statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span><span>Key-Gated Proxy Active (Zero Client Secrets)</span>`;
-          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition';
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition cursor-pointer';
         } else if (authMode === 'RAM_SESSION_KEYS') {
           statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span><span>Key-Gated RAM Vault (${KEY_VAULT.getWeatherProvider()})</span>`;
-          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition';
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-sm transition cursor-pointer';
         } else {
           statusPill.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span><span>Bootstrap Mode — Add Keys/Proxy</span>`;
-          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition';
+          vaultBtn.className = 'inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-sm transition cursor-pointer';
         }
 
-        // Generate grounded AI briefings asynchronously
         generateDutyAIBriefing();
         generateSeniorAIBriefing();
       } catch (err) {
@@ -2334,6 +2647,27 @@ Write a concise engineering justification memo for promoting ${top.code} next wi
         document.getElementById('verdict-subline').textContent = `${err.message}. Open "API Keys & Proxy Vault" to verify your Weather API key or Cloudflare Worker URL.`;
       }
     }
+
+    // Explicitly bind handlers on window for guaranteed inline attribute access
+    window.openSecurityModal = openSecurityModal;
+    window.closeSecurityModal = closeSecurityModal;
+    window.saveKeyVaultConfig = saveKeyVaultConfig;
+    window.clearKeyVault = clearKeyVault;
+    window.copyWorkerSnippet = copyWorkerSnippet;
+    window.inspectProvenance = inspectProvenance;
+    window.closeProvenanceModal = closeProvenanceModal;
+    window.switchRoleTab = switchRoleTab;
+    window.handleScenarioChange = handleScenarioChange;
+    window.refreshAllData = refreshAllData;
+    window.toggleRouteSelection = toggleRouteSelection;
+    window.selectRecommendedRoutes = selectRecommendedRoutes;
+    window.recalculateCustomSalt = recalculateCustomSalt;
+    window.submitDutyDecision = submitDutyDecision;
+    window.submitSeniorDecision = submitSeniorDecision;
+    window.exportAuditLogJSON = exportAuditLogJSON;
+    window.generateDutyAIBriefing = generateDutyAIBriefing;
+    window.generateSeniorAIBriefing = generateSeniorAIBriefing;
+    window.renderHourlyChart = renderHourlyChart;
 
     window.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
